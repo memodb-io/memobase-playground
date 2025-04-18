@@ -1,0 +1,50 @@
+import * as React from "react";
+
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarRail,
+} from "@/components/ui/sidebar";
+import { ThreadList } from "@/components/assistant-ui/thread-list";
+
+import Image from "next/image";
+
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  return (
+    <Sidebar {...props}>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" asChild>
+              <a href="#">
+                <Image
+                  className="rounded"
+                  src="/logo.png"
+                  alt="Memobase logo"
+                  width={38}
+                  height={38}
+                  priority
+                />
+                <div className="flex flex-col gap-0.5 leading-none">
+                  <span className="font-semibold">Memobase</span>
+                  <span className=""></span>
+                </div>
+              </a>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <ThreadList />
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarRail />
+    </Sidebar>
+  );
+}
