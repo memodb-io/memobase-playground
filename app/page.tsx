@@ -4,6 +4,7 @@ import { AssistantRuntimeProvider } from "@assistant-ui/react";
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 
 import { AssistantSidebar } from "@/components/assistant-ui/assistant-sidebar";
+import { UserProfile } from "@/components/user-profile";
 
 import { AppSidebar } from "@/components/app-sidebar";
 import {
@@ -28,6 +29,7 @@ export default function Page() {
               <SidebarTrigger />
               <div className="flex-1" />
               <ThemeToggle />
+              <UserProfile />
             </div>
           </header>
           <div className="flex flex-1 flex-col gap-4">
