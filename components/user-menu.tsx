@@ -11,13 +11,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export function UserProfile() {
+export function UserMenu() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkUser = async () => {
-      const supabase = createClient();
+      const supabase = await createClient();
       const { data, error } = await supabase.auth.getUser();
       if (!error && data?.user) {
         setUser(data.user);
