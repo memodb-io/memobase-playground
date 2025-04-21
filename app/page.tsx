@@ -34,7 +34,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TimelineLayout } from "@/components/timeline/timeline-layout";
 import { getTopicIcon } from "@/components/icons/topic-icons";
-
+import { LangSwitch } from "@/components/lang-switch";
 export default function Page() {
   const [profiles, setProfiles] = useState<UserProfile[]>([]);
   const [events, setEvents] = useState<UserEvent[]>([]);
@@ -138,6 +138,7 @@ export default function Page() {
               <SidebarTrigger />
               <div className="flex-1" />
               <ThemeToggle />
+              <LangSwitch />
               <UserMenu />
             </div>
           </header>
