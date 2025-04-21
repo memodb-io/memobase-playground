@@ -12,22 +12,22 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { login, signInWithGoogle, signInWithGithub } from "@/app/login/actions";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
 export default function LoginPage() {
   const t = useTranslations("common");
-  const url = new URL(window.location.href);
-  const params = url.searchParams;
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const message = params.get("message");
+    const message = searchParams.get("message");
     if (message) {
       toast.success(message, {
         position: "top-center",
       });
     }
-  }, [params]);
+  }, [searchParams]);
 
   return (
     <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
