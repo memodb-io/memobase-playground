@@ -51,6 +51,13 @@
     },
     "loginRequired": "Login required",
     "loginRequiredDescription": "Please login to continue using this feature",
-    "loggingIn": "Logging in..."
+    "loggingIn": "Logging in...",
+    "emailAlreadyRegistered": "This email is already registered, please login directly",
+    "checkEmailForVerification": "Please check your email and complete verification"
+  },
+  "error": {
+    "title": "Error",
+    "defaultMessage": "Sorry, something went wrong",
+    "backToLogin": "Back to Login"
   }
 }

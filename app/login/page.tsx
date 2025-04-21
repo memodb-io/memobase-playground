@@ -13,21 +13,13 @@ import { Label } from "@/components/ui/label";
 import { login, signInWithGoogle, signInWithGithub } from "@/app/login/actions";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
-import { toast } from "sonner";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 export default function LoginPage() {
   const t = useTranslations("common");
   const searchParams = useSearchParams();
-
-  useEffect(() => {
-    const message = searchParams.get("message");
-    if (message) {
-      toast.success(message, {
-        position: "top-center",
-      });
-    }
-  }, [searchParams]);
+  const message = searchParams.get("message");
 
   return (
     <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
@@ -87,6 +79,12 @@ export default function LoginPage() {
                     {t("orLoginWithEmail")}
                   </span>
                 </div>
+                {message && (
+                  <Alert variant="destructive">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>{message}</AlertDescription>
+                  </Alert>
+                )}
                 <form action={login}>
                   <div className="grid gap-6">
                     <div className="grid gap-2">

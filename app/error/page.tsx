@@ -6,16 +6,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function ErrorPage() {
   const searchParams = useSearchParams();
-  const errorMessage = searchParams.get("message") || "抱歉，发生了一些错误";
+  const t = useTranslations("error");
+  const errorMessage = searchParams.get("message") || t("defaultMessage");
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
       <Card className="w-[400px]">
         <CardHeader>
-          <CardTitle className="text-2xl text-center">出错了</CardTitle>
+          <CardTitle className="text-2xl text-center">{t("title")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <Alert variant="destructive">
@@ -23,7 +25,7 @@ export default function ErrorPage() {
             <AlertDescription>{errorMessage}</AlertDescription>
           </Alert>
           <Button asChild className="w-full">
-            <Link href="/login">返回登录页面</Link>
+            <Link href="/login">{t("backToLogin")}</Link>
           </Button>
         </CardContent>
       </Card>

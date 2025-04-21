@@ -51,6 +51,13 @@
     },
     "loginRequired": "需要登录",
     "loginRequiredDescription": "请登录以继续使用此功能",
-    "loggingIn": "登录中..."
+    "loggingIn": "登录中...",
+    "emailAlreadyRegistered": "该邮箱已被注册，请直接登录",
+    "checkEmailForVerification": "请检查您的邮箱并完成验证"
+  },
+  "error": {
+    "title": "出错了",
+    "defaultMessage": "抱歉，发生了一些错误",
+    "backToLogin": "返回登录页面"
   }
 }

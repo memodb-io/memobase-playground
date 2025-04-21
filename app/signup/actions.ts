@@ -2,9 +2,11 @@
 
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 
 export async function signup(formData: FormData) {
   const supabase = await createClient();
+  const t = await getTranslations("common");
 
   const payload = {
     email: formData.get("email") as string,
@@ -20,9 +22,9 @@ export async function signup(formData: FormData) {
 
   if (data.user?.identities?.length === 0) {
     redirect(
-      `/login?message=${encodeURIComponent("该邮箱已被注册，请直接登录")}`
+      `/login?message=${encodeURIComponent(t("emailAlreadyRegistered"))}`
     );
   }
 
-  redirect(`/login?message=${encodeURIComponent("请检查您的邮箱并完成验证")}`);
+  redirect(`/login?message=${encodeURIComponent(t("checkEmailForVerification"))}`);
 }
