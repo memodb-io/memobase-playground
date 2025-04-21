@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,9 +12,22 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { login, signInWithGoogle, signInWithGithub } from "@/app/login/actions";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const t = useTranslations("common");
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const message = searchParams.get("message");
+    if (message) {
+      toast.success(message, {
+        position: "top-center",
+      });
+    }
+  }, [searchParams]);
 
   return (
     <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
@@ -98,6 +113,7 @@ export default function LoginPage() {
                         id="password"
                         name="password"
                         type="password"
+                        placeholder="••••••••"
                         required
                       />
                     </div>
