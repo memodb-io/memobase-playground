@@ -21,6 +21,9 @@
     "signInWithGithub": "使用 GitHub 登录",
     "assistantPanel": "助手面板",
     "getRecordsFailed": "获取记录失败",
+    "insertRecordsFailed": "保存记录失败",
+    "flashRecordsFailed": "更新记录失败",
+    "chatError": "对话发生错误",
     "memories": "记忆",
     "events": "事件",
     "noContent": "无内容更新",
@@ -45,6 +48,9 @@
       "new": "新建对话",
       "newChat": "新对话",
       "archive": "归档对话"
-    }
+    },
+    "loginRequired": "需要登录",
+    "loginRequiredDescription": "请登录以继续使用此功能",
+    "loggingIn": "登录中..."
   }
 }

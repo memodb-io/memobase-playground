@@ -21,6 +21,9 @@
     "signInWithGithub": "Sign in with GitHub",
     "assistantPanel": "Assistant Panel",
     "getRecordsFailed": "Failed to get records",
+    "insertRecordsFailed": "Failed to save records",
+    "flashRecordsFailed": "Failed to update records",
+    "chatError": "Chat error occurred",
     "memories": "Memories",
     "events": "Events",
     "noContent": "No content update",
@@ -45,6 +48,9 @@
       "new": "New Thread",
       "newChat": "New Chat",
       "archive": "Archive thread"
-    }
+    },
+    "loginRequired": "Login required",
+    "loginRequiredDescription": "Please login to continue using this feature",
+    "loggingIn": "Logging in..."
   }
 }

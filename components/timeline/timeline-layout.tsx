@@ -14,6 +14,7 @@ interface TimelineLayoutProps {
   connectorColor?: "primary" | "secondary" | "muted" | "accent";
   className?: string;
   loading?: boolean;
+  emptyText?: string;
 }
 
 export const TimelineLayout = ({
@@ -25,9 +26,10 @@ export const TimelineLayout = ({
   loading = true,
   connectorColor,
   className,
+  emptyText,
 }: TimelineLayoutProps) => {
   return (
-    <Timeline size={size} className={className}>
+    <Timeline size={size} className={className} emptyText={emptyText}>
       {[...items].map((item, index) => (
         <motion.div
           key={index}

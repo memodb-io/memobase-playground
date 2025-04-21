@@ -36,9 +36,12 @@ import { TimelineLayout } from "@/components/timeline/timeline-layout";
 import { getTopicIcon } from "@/components/icons/topic-icons";
 import { LangSwitch } from "@/components/lang-switch";
 import { useTranslations } from "next-intl";
+import { useLoginDialog } from "@/stores/use-login-dialog";
+import { createClient } from "@/utils/supabase/client";
 
 export default function Page() {
   const t = useTranslations("common");
+  const { openDialog } = useLoginDialog();
   const [profiles, setProfiles] = useState<UserProfile[]>([]);
   const [events, setEvents] = useState<UserEvent[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,11 +51,14 @@ export default function Page() {
     setIsLoading(true);
     try {
       const res = await getProfile();
-      if (res.code === 0 && res.data) {
-        setProfiles(res.data);
-        toast.success(res.message);
+      if (res.code === 401) {
+        openDialog();
+        return;
+      }
+      if (res.code === 0) {
+        setProfiles(res.data || []);
       } else {
-        toast.error(res.message);
+        toast.error(res.message || t("getRecordsFailed"));
       }
     } catch {
       toast.error(t("getRecordsFailed"));
@@ -65,11 +71,14 @@ export default function Page() {
     setIsLoading(true);
     try {
       const res = await getEvent();
-      if (res.code === 0 && res.data) {
-        setEvents(res.data);
-        toast.success(res.message);
+      if (res.code === 401) {
+        openDialog();
+        return;
+      }
+      if (res.code === 0) {
+        setEvents(res.data || []);
       } else {
-        toast.error(res.message);
+        toast.error(res.message || t("getRecordsFailed"));
       }
     } catch {
       toast.error(t("getRecordsFailed"));
@@ -81,6 +90,11 @@ export default function Page() {
   const runtime = useChatRuntime({
     api: "/api/chat",
     onResponse: (response) => {
+      if (response.status === 401) {
+        openDialog();
+        return;
+      }
+
       const message = response.headers.get("x-last-user-message") || "";
       lastUserMessageRef.current = decodeURIComponent(message);
     },
@@ -91,36 +105,54 @@ export default function Page() {
 
       const lastContent = message.content[message.content.length - 1];
       if (lastContent.type === "text") {
-        const res = await insertMessages([
-          {
-            role: "user",
-            content: lastUserMessageRef.current,
-          },
-          {
-            role: "assistant",
-            content: lastContent.text,
-          },
-        ]);
-        if (res.code !== 0) {
-          toast.error(res.message);
-        }
+        try {
+          const res = await insertMessages([
+            {
+              role: "user",
+              content: lastUserMessageRef.current,
+            },
+            {
+              role: "assistant",
+              content: lastContent.text,
+            },
+          ]);
+          if (res.code !== 0) {
+            toast.error(res.message || t("insertRecordsFailed"));
+            return;
+          }
 
-        flash().then((res) => {
-          if (res.code === 0) {
+          const flashRes = await flash();
+          if (flashRes.code === 0) {
             fetchProfile();
             fetchEvent();
+          } else {
+            toast.error(flashRes.message || t("flashRecordsFailed"));
           }
-        });
+        } catch {
+          toast.error(t("insertRecordsFailed"));
+        }
       }
     },
     onError: (error) => {
-      toast.error(error.message);
+      if (error.message.includes("401")) {
+        openDialog();
+      } else {
+        toast.error(t("chatError"));
+      }
     },
   });
 
   useEffect(() => {
-    fetchProfile();
-    fetchEvent();
+    const checkUser = async () => {
+      const supabase = await createClient();
+      const { data, error } = await supabase.auth.getUser();
+      if (!error && data?.user) {
+        fetchProfile();
+        fetchEvent();
+      }
+    };
+
+    checkUser();
   }, []);
 
   const groupedProfiles = profiles.reduce((acc, profile) => {
@@ -167,43 +199,49 @@ export default function Page() {
                   </button>
                 </div>
                 <TabsContent value="profiles">
-                  <div className="grid gap-4 overflow-y-auto max-h-[calc(100vh-10rem)]">
-                    {Object.entries(groupedProfiles).map(
-                      ([topic, profiles]) => (
-                        <Card key={topic}>
-                          <CardHeader>
-                            <CardTitle>{topic}</CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <div className="space-y-4">
-                              {profiles.map((profile) => {
-                                const Icon = getTopicIcon(profile.sub_topic);
-                                return (
-                                  <div
-                                    key={profile.id}
-                                    className="border-b pb-4 last:pb-0 last:border-b-0"
-                                  >
-                                    <div className="font-medium text-sm text-muted-foreground mb-1 flex items-center gap-2">
-                                      <Icon className="w-4 h-4" />
-                                      {profile.sub_topic}
+                  {profiles.length === 0 ? (
+                    <div className="p-8 text-center text-sm text-muted-foreground">
+                      {t("noContent")}
+                    </div>
+                  ) : (
+                    <div className="grid gap-4 overflow-y-auto max-h-[calc(100vh-10rem)]">
+                      {Object.entries(groupedProfiles).map(
+                        ([topic, profiles]) => (
+                          <Card key={topic}>
+                            <CardHeader>
+                              <CardTitle>{topic}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                              <div className="space-y-4">
+                                {profiles.map((profile) => {
+                                  const Icon = getTopicIcon(profile.sub_topic);
+                                  return (
+                                    <div
+                                      key={profile.id}
+                                      className="border-b pb-4 last:pb-0 last:border-b-0"
+                                    >
+                                      <div className="font-medium text-sm text-muted-foreground mb-1 flex items-center gap-2">
+                                        <Icon className="w-4 h-4" />
+                                        {profile.sub_topic}
+                                      </div>
+                                      <div className="text-sm">
+                                        {profile.content}
+                                      </div>
+                                      <div className="text-xs text-muted-foreground mt-2">
+                                        {new Date(
+                                          profile.created_at
+                                        ).toLocaleString()}
+                                      </div>
                                     </div>
-                                    <div className="text-sm">
-                                      {profile.content}
-                                    </div>
-                                    <div className="text-xs text-muted-foreground mt-2">
-                                      {new Date(
-                                        profile.created_at
-                                      ).toLocaleString()}
-                                    </div>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </CardContent>
-                        </Card>
-                      )
-                    )}
-                  </div>
+                                  );
+                                })}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        )
+                      )}
+                    </div>
+                  )}
                 </TabsContent>
                 <TabsContent value="events">
                   <div className="overflow-y-auto max-h-[calc(100vh-10rem)]">
@@ -229,6 +267,7 @@ export default function Page() {
                       size="sm"
                       animate={true}
                       loading={isLoading}
+                      emptyText={t("noContent")}
                     />
                   </div>
                 </TabsContent>

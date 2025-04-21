@@ -31,6 +31,8 @@ interface TimelineProps
     VariantProps<typeof timelineVariants> {
   /** Size of the timeline icons */
   iconsize?: "sm" | "md" | "lg";
+  /** Text to display when there are no items */
+  emptyText?: string;
 }
 
 /**
@@ -38,11 +40,11 @@ interface TimelineProps
  * @component
  */
 const Timeline = React.forwardRef<HTMLOListElement, TimelineProps>(
-  ({ className, iconsize, size, children, ...props }, ref) => {
+  ({ className, iconsize, size, children, emptyText, ...props }, ref) => {
     const items = React.Children.toArray(children);
 
     if (items.length === 0) {
-      return <TimelineEmpty />;
+      return <TimelineEmpty emptyText={emptyText} />;
     }
 
     return (
@@ -469,8 +471,10 @@ TimelineContent.displayName = "TimelineContent";
 
 const TimelineEmpty = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => (
+  React.HTMLAttributes<HTMLDivElement> & {
+    emptyText?: string;
+  }
+>(({ className, emptyText, children, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
@@ -480,7 +484,7 @@ const TimelineEmpty = React.forwardRef<
     {...props}
   >
     <p className="text-sm text-muted-foreground">
-      {children || "No timeline items to display"}
+      {children || emptyText || "No timeline items to display"}
     </p>
   </div>
 ));
