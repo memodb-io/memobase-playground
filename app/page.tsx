@@ -28,35 +28,12 @@ import {
   getEvent,
 } from "@/api/models/memobase";
 
-import {
-  AlertCircle,
-  RefreshCw,
-  UserRound,
-  Book,
-  MessageSquare,
-  Calendar,
-  FileText,
-  Heart,
-  Music,
-  MapPin,
-  ShoppingBag,
-  Gamepad,
-  Code,
-  Lightbulb,
-  Building,
-  Briefcase,
-  Brain,
-  Zap,
-  Target,
-  Sun,
-  Video,
-  Plane,
-  Utensils,
-} from "lucide-react";
+import { RefreshCw } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TimelineLayout } from "@/components/timeline/timeline-layout";
+import { getTopicIcon } from "@/components/icons/topic-icons";
 
 export default function Page() {
   const [profiles, setProfiles] = useState<UserProfile[]>([]);
@@ -195,24 +172,28 @@ export default function Page() {
                           </CardHeader>
                           <CardContent>
                             <div className="space-y-4">
-                              {profiles.map((profile) => (
-                                <div
-                                  key={profile.id}
-                                  className="border-b pb-4 last:pb-0 last:border-b-0"
-                                >
-                                  <div className="font-medium text-sm text-muted-foreground mb-1">
-                                    {profile.sub_topic}
+                              {profiles.map((profile) => {
+                                const Icon = getTopicIcon(profile.sub_topic);
+                                return (
+                                  <div
+                                    key={profile.id}
+                                    className="border-b pb-4 last:pb-0 last:border-b-0"
+                                  >
+                                    <div className="font-medium text-sm text-muted-foreground mb-1 flex items-center gap-2">
+                                      <Icon className="w-4 h-4" />
+                                      {profile.sub_topic}
+                                    </div>
+                                    <div className="text-sm">
+                                      {profile.content}
+                                    </div>
+                                    <div className="text-xs text-muted-foreground mt-2">
+                                      {new Date(
+                                        profile.created_at
+                                      ).toLocaleString()}
+                                    </div>
                                   </div>
-                                  <div className="text-sm">
-                                    {profile.content}
-                                  </div>
-                                  <div className="text-xs text-muted-foreground mt-2">
-                                    {new Date(
-                                      profile.created_at
-                                    ).toLocaleString()}
-                                  </div>
-                                </div>
-                              ))}
+                                );
+                              })}
                             </div>
                           </CardContent>
                         </Card>
@@ -229,68 +210,7 @@ export default function Page() {
                           const topic = delta.attributes?.topic || "default";
                           const subTopic =
                             delta.attributes?.sub_topic || "default";
-                          const iconMap: Record<string, React.ReactNode> = {
-                            // basic_info
-                            name: <UserRound className="w-4 h-4" />,
-                            age: <UserRound className="w-4 h-4" />,
-                            gender: <UserRound className="w-4 h-4" />,
-                            birth_date: <Calendar className="w-4 h-4" />,
-                            nationality: <MapPin className="w-4 h-4" />,
-                            ethnicity: <UserRound className="w-4 h-4" />,
-                            language_spoken: (
-                              <MessageSquare className="w-4 h-4" />
-                            ),
-                            allergies: <AlertCircle className="w-4 h-4" />,
-
-                            // contact_info
-                            email: <MessageSquare className="w-4 h-4" />,
-                            phone: <MessageSquare className="w-4 h-4" />,
-                            city: <MapPin className="w-4 h-4" />,
-                            country: <MapPin className="w-4 h-4" />,
-
-                            // education
-                            school: <Book className="w-4 h-4" />,
-                            degree: <Book className="w-4 h-4" />,
-                            major: <Book className="w-4 h-4" />,
-
-                            // demographics
-                            marital_status: <Heart className="w-4 h-4" />,
-                            number_of_children: (
-                              <UserRound className="w-4 h-4" />
-                            ),
-                            household_income: (
-                              <ShoppingBag className="w-4 h-4" />
-                            ),
-
-                            // work
-                            company: <Building className="w-4 h-4" />,
-                            title: <Briefcase className="w-4 h-4" />,
-                            working_industry: <Building className="w-4 h-4" />,
-                            previous_projects: <FileText className="w-4 h-4" />,
-                            work_skills: <Code className="w-4 h-4" />,
-
-                            // interest
-                            books: <Book className="w-4 h-4" />,
-                            movies: <Video className="w-4 h-4" />,
-                            music: <Music className="w-4 h-4" />,
-                            foods: <Utensils className="w-4 h-4" />,
-                            sports: <Gamepad className="w-4 h-4" />,
-
-                            // psychological
-                            personality: <Brain className="w-4 h-4" />,
-                            values: <Heart className="w-4 h-4" />,
-                            beliefs: <Lightbulb className="w-4 h-4" />,
-                            motivations: <Zap className="w-4 h-4" />,
-                            goals: <Target className="w-4 h-4" />,
-
-                            // life_event
-                            marriage: <Heart className="w-4 h-4" />,
-                            relocation: <MapPin className="w-4 h-4" />,
-                            retirement: <Sun className="w-4 h-4" />,
-                            travel: <Plane className="w-4 h-4" />,
-
-                            default: <UserRound className="w-4 h-4" />,
-                          };
+                          const Icon = getTopicIcon(subTopic);
 
                           return {
                             id: parseInt(event.id),
@@ -298,7 +218,7 @@ export default function Page() {
                             title: `${topic} - ${subTopic}`,
                             description: delta.content || "无内容更新",
                             color: "primary",
-                            icon: iconMap[subTopic] || iconMap["default"],
+                            icon: <Icon className="w-4 h-4" />,
                           };
                         });
                       })}
