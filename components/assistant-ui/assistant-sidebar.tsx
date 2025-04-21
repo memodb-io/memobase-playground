@@ -9,10 +9,12 @@ import { Button } from "@/components/ui/button";
 import { Brain } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import type { FC, PropsWithChildren } from "react";
+import { useTranslations } from "next-intl";
 
 import { Thread } from "@/components/assistant-ui/thread";
 
 export const AssistantSidebar: FC<PropsWithChildren> = ({ children }) => {
+  const t = useTranslations("common");
   const isMobile = useIsMobile();
   const [open, setOpen] = React.useState(false);
 
@@ -25,7 +27,7 @@ export const AssistantSidebar: FC<PropsWithChildren> = ({ children }) => {
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetContent side="right" className="w-[300px] p-0">
             <SheetHeader>
-              <SheetTitle>助手面板</SheetTitle>
+              <SheetTitle>{t("assistantPanel")}</SheetTitle>
             </SheetHeader>
             {children}
           </SheetContent>

@@ -1,2 +1,50 @@
 {
+  "common": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "continue": "Continue",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "agreeTerms": "By continuing, you agree to our {terms} and {privacy}",
+    "createAccount": "Create Account",
+    "createAccountDesc": "Enter your email and password to register",
+    "welcomeBack": "Welcome Back",
+    "welcomeBackDesc": "Sign in with Google or GitHub",
+    "orLoginWithEmail": "Or sign in with email",
+    "alreadyHaveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "signInWithGoogle": "Sign in with Google",
+    "signInWithGithub": "Sign in with GitHub",
+    "assistantPanel": "Assistant Panel",
+    "getRecordsFailed": "Failed to get records",
+    "memories": "Memories",
+    "events": "Events",
+    "noContent": "No content update",
+    "welcomeMessage": "Welcome to Memobase, How can I help you today?",
+    "scrollToBottom": "Scroll to bottom",
+    "writeMessage": "Write a message...",
+    "send": "Send",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "copy": "Copy",
+    "refresh": "Refresh",
+    "previous": "Previous",
+    "next": "Next",
+    "suggestions": {
+      "myName": "My name",
+      "travel": "Travel",
+      "food": "Food",
+      "allergies": "Allergies",
+      "projectDetails": "Project Details"
+    },
+    "thread": {
+      "new": "New Thread",
+      "newChat": "New Chat",
+      "archive": "Archive thread"
+    }
+  }
 }

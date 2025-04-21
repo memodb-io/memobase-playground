@@ -10,8 +10,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useTranslations } from "next-intl";
 
 export function UserMenu() {
+  const t = useTranslations("common");
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -42,10 +44,10 @@ export function UserMenu() {
     return (
       <div className="flex gap-2">
         <Button variant="outline" asChild>
-          <a href="/login">登录</a>
+          <a href="/login">{t("login")}</a>
         </Button>
         <Button asChild>
-          <a href="/signup">注册</a>
+          <a href="/signup">{t("signup")}</a>
         </Button>
       </div>
     );
@@ -74,7 +76,7 @@ export function UserMenu() {
         <DropdownMenuItem className="flex flex-col items-start">
           <div className="text-sm font-medium">{user.email}</div>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleLogout}>退出登录</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>{t("logout")}</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

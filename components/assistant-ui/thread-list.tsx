@@ -4,6 +4,7 @@ import {
   ThreadListPrimitive,
 } from "@assistant-ui/react";
 import { ArchiveIcon, PlusIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { TooltipIconButton } from "@/components/assistant-ui/tooltip-icon-button";
@@ -18,11 +19,12 @@ export const ThreadList: FC = () => {
 };
 
 const ThreadListNew: FC = () => {
+  const t = useTranslations("common");
   return (
     <ThreadListPrimitive.New asChild>
       <Button className="data-[active]:bg-muted hover:bg-muted flex items-center justify-start gap-1 rounded-lg px-2.5 py-2 text-start" variant="ghost">
         <PlusIcon />
-        New Thread
+        {t("thread.new")}
       </Button>
     </ThreadListPrimitive.New>
   );
@@ -44,20 +46,22 @@ const ThreadListItem: FC = () => {
 };
 
 const ThreadListItemTitle: FC = () => {
+  const t = useTranslations("common");
   return (
     <p className="text-sm">
-      <ThreadListItemPrimitive.Title fallback="New Chat" />
+      <ThreadListItemPrimitive.Title fallback={t("thread.newChat")} />
     </p>
   );
 };
 
 const ThreadListItemArchive: FC = () => {
+  const t = useTranslations("common");
   return (
     <ThreadListItemPrimitive.Archive asChild>
       <TooltipIconButton
         className="hover:text-primary text-foreground ml-auto mr-3 size-4 p-0"
         variant="ghost"
-        tooltip="Archive thread"
+        tooltip={t("thread.archive")}
       >
         <ArchiveIcon />
       </TooltipIconButton>

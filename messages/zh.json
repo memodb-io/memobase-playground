@@ -1,2 +1,50 @@
 {
+  "common": {
+    "login": "登录",
+    "signup": "注册",
+    "logout": "退出登录",
+    "email": "邮箱",
+    "password": "密码",
+    "forgotPassword": "忘记密码？",
+    "continue": "继续",
+    "termsOfService": "服务条款",
+    "privacyPolicy": "隐私政策",
+    "agreeTerms": "点击继续即表示您同意我们的 {terms} 和 {privacy}",
+    "createAccount": "创建账号",
+    "createAccountDesc": "输入您的邮箱和密码进行注册",
+    "welcomeBack": "欢迎回来",
+    "welcomeBackDesc": "使用 Google 或 GitHub 账号登录",
+    "orLoginWithEmail": "或者使用邮箱登录",
+    "alreadyHaveAccount": "已有账号？",
+    "noAccount": "还没有账号？",
+    "signInWithGoogle": "使用 Google 登录",
+    "signInWithGithub": "使用 GitHub 登录",
+    "assistantPanel": "助手面板",
+    "getRecordsFailed": "获取记录失败",
+    "memories": "记忆",
+    "events": "事件",
+    "noContent": "无内容更新",
+    "welcomeMessage": "欢迎使用 Memobase，今天我能为您做些什么？",
+    "scrollToBottom": "滚动到底部",
+    "writeMessage": "输入消息...",
+    "send": "发送",
+    "cancel": "取消",
+    "edit": "编辑",
+    "copy": "复制",
+    "refresh": "刷新",
+    "previous": "上一个",
+    "next": "下一个",
+    "suggestions": {
+      "myName": "我的名字",
+      "travel": "旅行",
+      "food": "食物",
+      "allergies": "过敏",
+      "projectDetails": "项目详情"
+    },
+    "thread": {
+      "new": "新建对话",
+      "newChat": "新对话",
+      "archive": "归档对话"
+    }
+  }
 }

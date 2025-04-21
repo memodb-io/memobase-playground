@@ -35,7 +35,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TimelineLayout } from "@/components/timeline/timeline-layout";
 import { getTopicIcon } from "@/components/icons/topic-icons";
 import { LangSwitch } from "@/components/lang-switch";
+import { useTranslations } from "next-intl";
+
 export default function Page() {
+  const t = useTranslations("common");
   const [profiles, setProfiles] = useState<UserProfile[]>([]);
   const [events, setEvents] = useState<UserEvent[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +55,7 @@ export default function Page() {
         toast.error(res.message);
       }
     } catch {
-      toast.error("获取记录失败");
+      toast.error(t("getRecordsFailed"));
     } finally {
       setIsLoading(false);
     }
@@ -69,7 +72,7 @@ export default function Page() {
         toast.error(res.message);
       }
     } catch {
-      toast.error("获取记录失败");
+      toast.error(t("getRecordsFailed"));
     } finally {
       setIsLoading(false);
     }
@@ -147,8 +150,8 @@ export default function Page() {
               <Tabs defaultValue="profiles" className="w-full">
                 <div className="flex items-center justify-between">
                   <TabsList>
-                    <TabsTrigger value="profiles">Memories</TabsTrigger>
-                    <TabsTrigger value="events">Events</TabsTrigger>
+                    <TabsTrigger value="profiles">{t("memories")}</TabsTrigger>
+                    <TabsTrigger value="events">{t("events")}</TabsTrigger>
                   </TabsList>
                   <button
                     onClick={() => {
@@ -217,7 +220,7 @@ export default function Page() {
                             id: parseInt(event.id),
                             date: new Date(event.created_at).toLocaleString(),
                             title: `${topic} - ${subTopic}`,
-                            description: delta.content || "无内容更新",
+                            description: delta.content || t("noContent"),
                             color: "primary",
                             icon: <Icon className="w-4 h-4" />,
                           };
