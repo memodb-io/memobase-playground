@@ -1,5 +1,5 @@
 import service, { Res } from "../http";
-import { UserProfile } from "@memobase/memobase";
+import { UserProfile, UserEvent } from "@memobase/memobase";
 
 export const getProfile = (): Promise<Res<UserProfile[]>> =>
   service.get("/api/memobase/profile");
@@ -12,3 +12,9 @@ export const insertMessages = (
     created_at?: string | undefined;
   }[]
 ): Promise<Res<null>> => service.post("/api/memobase/insert", { messages });
+
+export const flash = (): Promise<Res<null>> =>
+  service.post("/api/memobase/flash");
+
+export const getEvent = (): Promise<Res<UserEvent[]>> =>
+  service.get("/api/memobase/event");

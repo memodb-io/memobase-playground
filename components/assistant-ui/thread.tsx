@@ -15,6 +15,11 @@ import {
   PencilIcon,
   RefreshCwIcon,
   SendHorizontalIcon,
+  UserIcon,
+  PlaneIcon,
+  UtensilsIcon,
+  AlertTriangleIcon,
+  BriefcaseIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -84,28 +89,39 @@ const ThreadWelcome: FC = () => {
 };
 
 const ThreadWelcomeSuggestions: FC = () => {
+  const suggestions = [
+    { icon: UserIcon, prompt: "My name is ", label: "My name" },
+    { icon: PlaneIcon, prompt: "I like to travel to ", label: "Travel" },
+    { icon: UtensilsIcon, prompt: "I like to eat ", label: "Food" },
+    {
+      icon: AlertTriangleIcon,
+      prompt: "I am allergic to ",
+      label: "Allergies",
+    },
+    {
+      icon: BriefcaseIcon,
+      prompt: "I am working on ",
+      label: "Project Details",
+    },
+  ];
+
   return (
-    <div className="mt-3 flex w-full items-stretch justify-center gap-4">
-      <ThreadPrimitive.Suggestion
-        className="hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-3 transition-colors ease-in"
-        prompt="I like to eat hamburgers"
-        method="replace"
-        autoSend
-      >
-        <span className="line-clamp-2 text-ellipsis text-sm font-semibold">
-          I like to eat hamburgers
-        </span>
-      </ThreadPrimitive.Suggestion>
-      <ThreadPrimitive.Suggestion
-        className="hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-3 transition-colors ease-in"
-        prompt="I'm Gus"
-        method="replace"
-        autoSend
-      >
-        <span className="line-clamp-2 text-ellipsis text-sm font-semibold">
-          I&apos;m Gus
-        </span>
-      </ThreadPrimitive.Suggestion>
+    <div className="mt-3 flex w-full flex-wrap items-stretch justify-center gap-2 px-4">
+      {suggestions.map(({ icon: Icon, prompt, label }, index) => (
+        <ThreadPrimitive.Suggestion
+          key={index}
+          className="hover:bg-muted/80 flex shrink-0 flex-col items-center justify-center rounded-lg border p-2 transition-colors ease-in"
+          prompt={prompt}
+          method="replace"
+        >
+          <div className="flex items-center gap-1 justify-center">
+            <Icon className="h-4 w-4 flex-shrink-0" />
+            <span className="text-sm font-semibold whitespace-nowrap">
+              {label}
+            </span>
+          </div>
+        </ThreadPrimitive.Suggestion>
+      ))}
     </div>
   );
 };
