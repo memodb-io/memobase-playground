@@ -45,7 +45,7 @@ export const AssistantSidebar: FC<PropsWithChildren> = ({ children }) => {
       className="!h-[calc(100vh-4rem)]"
     >
       <ResizablePanel
-        defaultSize={65}
+        defaultSize={70}
         minSize={30}
         className="min-w-[300px]"
       >
@@ -53,7 +53,7 @@ export const AssistantSidebar: FC<PropsWithChildren> = ({ children }) => {
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel
-        defaultSize={35}
+        defaultSize={30}
         minSize={25}
         className="min-w-[250px]"
       >
