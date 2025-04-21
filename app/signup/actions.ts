@@ -11,7 +11,7 @@ export async function signup(formData: FormData) {
   const payload = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
-    redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL!}/auth/confirm`,
+    redirectTo: process.env.NEXT_PUBLIC_BASE_URL!,
   };
 
   const { error, data } = await supabase.auth.signUp(payload);
@@ -26,5 +26,7 @@ export async function signup(formData: FormData) {
     );
   }
 
-  redirect(`/login?message=${encodeURIComponent(t("checkEmailForVerification"))}`);
+  redirect(
+    `/login?message=${encodeURIComponent(t("checkEmailForVerification"))}`
+  );
 }
