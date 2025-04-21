@@ -147,8 +147,8 @@ export default function Page() {
       const supabase = await createClient();
       const { data, error } = await supabase.auth.getUser();
       if (!error && data?.user) {
-        fetchProfile();
-        fetchEvent();
+        await fetchProfile();
+        await fetchEvent();
       }
     };
 

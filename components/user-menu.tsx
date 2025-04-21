@@ -61,7 +61,7 @@ export function UserMenu() {
             <img
               src={user.user_metadata.avatar_url}
               alt={user.email}
-              className="h-8 w-8 rounded-full object-cover"
+              className="h-8 w-8 rounded-full object-cover border border-gray-200"
             />
           ) : (
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
