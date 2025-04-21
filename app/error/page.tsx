@@ -1,6 +1,5 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,8 +7,9 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 
 export default function ErrorPage() {
-  const searchParams = useSearchParams();
-  const errorMessage = searchParams.get("message") || "抱歉，发生了一些错误";
+  const url = new URL(window.location.href);
+  const params = url.searchParams;
+  const errorMessage = params.get("message") || "抱歉，发生了一些错误";
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
