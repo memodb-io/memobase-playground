@@ -4,7 +4,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Brain } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -24,6 +24,9 @@ export const AssistantSidebar: FC<PropsWithChildren> = ({ children }) => {
         </div>
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetContent side="right" className="w-[300px] p-0">
+            <SheetHeader>
+              <SheetTitle>助手面板</SheetTitle>
+            </SheetHeader>
             {children}
           </SheetContent>
         </Sheet>

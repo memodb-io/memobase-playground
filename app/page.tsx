@@ -165,7 +165,7 @@ export default function Page() {
             </div>
           </header>
           <AssistantSidebar>
-            <div className="pt-8 px-4">
+            <div className="pt-0 px-2 md:pt-4 md:px-4">
               <Tabs defaultValue="profiles" className="w-full">
                 <div className="flex items-center justify-between">
                   <TabsList>
