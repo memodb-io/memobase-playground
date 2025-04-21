@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     const { messages, tools } = await req.json();
 
     const result = streamText({
-      model: openai("gpt-4o"),
+      model: openai("gpt-4o-mini"),
       messages,
       // forward system prompt and tools from the frontend
       system: context,
