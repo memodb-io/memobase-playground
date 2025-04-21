@@ -4,7 +4,6 @@ import { jsonSchema, streamText } from "ai";
 import { createClient } from "@/utils/supabase/server";
 import { memoBaseClient } from "@/utils/memobase/client";
 
-export const runtime = "edge";
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
