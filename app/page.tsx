@@ -3,10 +3,9 @@
 import { useRef, useState, useEffect } from "react";
 import * as React from "react";
 
-import { AssistantRuntimeProvider } from "@assistant-ui/react";
+import { AssistantRuntimeProvider, AssistantCloud } from "@assistant-ui/react";
 
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
-
 import { AssistantSidebar } from "@/components/assistant-ui/assistant-sidebar";
 import { UserMenu } from "@/components/user-menu";
 import { AppSidebar } from "@/components/app-sidebar";
@@ -37,10 +36,11 @@ import { getTopicIcon } from "@/components/icons/topic-icons";
 import { LangSwitch } from "@/components/lang-switch";
 import { useTranslations } from "next-intl";
 import { useLoginDialog } from "@/stores/use-login-dialog";
-import { createClient } from "@/utils/supabase/client";
+import { useUserStore } from "@/stores/user";
 
 export default function Page() {
   const t = useTranslations("common");
+  const { user } = useUserStore();
   const { openDialog } = useLoginDialog();
   const [profiles, setProfiles] = useState<UserProfile[]>([]);
   const [events, setEvents] = useState<UserEvent[]>([]);
@@ -87,8 +87,15 @@ export default function Page() {
     }
   };
 
+  const cloud = new AssistantCloud({
+    baseUrl: `${process.env["NEXT_PUBLIC_BASE_URL"]}/api/storage`,
+    // baseUrl: process.env["NEXT_PUBLIC_ASSISTANT_BASE_URL"]!,
+    anonymous: true,
+  });
+
   const runtime = useChatRuntime({
     api: "/api/chat",
+    cloud: user ? cloud : undefined,
     onResponse: (response) => {
       if (response.status === 401) {
         openDialog();
@@ -144,14 +151,11 @@ export default function Page() {
 
   useEffect(() => {
     const checkUser = async () => {
-      const supabase = await createClient();
-      const { data, error } = await supabase.auth.getUser();
-      if (!error && data?.user) {
+      if (user) {
         await fetchProfile();
         await fetchEvent();
       }
     };
-
     checkUser();
   }, []);
 

@@ -1,9 +1,6 @@
 "use client";
 
-import { createClient } from "@/utils/supabase/client";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
-import { User } from "@supabase/supabase-js";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,29 +8,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useTranslations } from "next-intl";
+import { useUserStore } from "@/stores/user";
 
 export function UserMenu() {
   const t = useTranslations("common");
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const checkUser = async () => {
-      const supabase = await createClient();
-      const { data, error } = await supabase.auth.getUser();
-      if (!error && data?.user) {
-        setUser(data.user);
-      }
-      setLoading(false);
-    };
-
-    checkUser();
-  }, []);
+  const { user, loading, signOut } = useUserStore();
 
   const handleLogout = async () => {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    setUser(null);
+    await signOut();
   };
 
   if (loading) {

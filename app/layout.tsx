@@ -8,6 +8,7 @@ import { getLocale, getMessages } from "next-intl/server";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { LoginDialog } from "@/components/login-dialog";
+import { AuthProvider } from "@/components/auth-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,9 +48,11 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
-            <Toaster />
-            <LoginDialog />
+            <AuthProvider>
+              {children}
+              <Toaster />
+              <LoginDialog />
+            </AuthProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
