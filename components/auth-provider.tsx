@@ -6,7 +6,7 @@ import { useUserStore } from "@/stores/user";
 import { useSearchParams } from "next/navigation";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const { setUser, setLoading, loading } = useUserStore();
+  const { setUser, setLoading, loading, updateConversations } = useUserStore();
   const searchParams = useSearchParams();
 
   const checkUser = useCallback(async () => {
@@ -15,9 +15,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { data, error } = await supabase.auth.getUser();
     if (!error && data?.user) {
       setUser(data.user);
+
+      const res = await supabase.rpc("get_message_count_by_uid", {
+        uid: data.user.id,
+      });
+      if (!res.error) {
+        updateConversations(res.data);
+      }
     }
     setLoading(false);
-  }, [setUser, setLoading]);
+  }, [setUser, setLoading, updateConversations]);
 
   useEffect(() => {
     checkUser();

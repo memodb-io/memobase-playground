@@ -19,22 +19,6 @@ export async function POST(req: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const res = await supabase.rpc("get_message_count_by_uid", {
-    uid: data.user.id,
-  });
-  if (res.error) {
-    return new Response("Internal Server Error", { status: 500 });
-  }
-
-  if (res.data >= 30) {
-    return new Response(
-      "This is the maximum number of conversations for today, please wait for tomorrow",
-      {
-        status: 429,
-      }
-    );
-  }
-
   try {
     const user = await memoBaseClient.getOrCreateUser(data.user.id);
 

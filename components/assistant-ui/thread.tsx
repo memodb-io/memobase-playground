@@ -28,6 +28,8 @@ import { Button } from "@/components/ui/button";
 import { MarkdownText } from "@/components/assistant-ui/markdown-text";
 import { TooltipIconButton } from "@/components/assistant-ui/tooltip-icon-button";
 
+import { useUserStore } from "@/stores/user";
+
 export const Thread: FC = () => {
   return (
     <ThreadPrimitive.Root
@@ -132,6 +134,18 @@ const ThreadWelcomeSuggestions: FC = () => {
 
 const Composer: FC = () => {
   const t = useTranslations("common");
+  const { isMaxConversations } = useUserStore();
+
+  if (isMaxConversations()) {
+    return (
+      <div className="flex w-full flex-wrap items-end rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in">
+        <div className="text-muted-foreground max-h-40 flex-grow resize-none border-none bg-transparent px-2 py-4 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed">
+          {t("chatMaxConversations")}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <ComposerPrimitive.Root className="focus-within:border-ring/20 flex w-full flex-wrap items-end rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in">
       <ComposerPrimitive.Input

@@ -4,20 +4,26 @@ import { User } from "@supabase/supabase-js";
 
 interface UserState {
   user: User | null;
+  maxConversations: number;
+  currentConversations: number;
   loading: boolean;
   error: string | null;
   setUser: (user: User | null) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
   signOut: () => Promise<void>;
+  updateConversations: (count: number) => void;
+  isMaxConversations: () => boolean;
 }
 
 const supabase = createClient();
 
-export const useUserStore = create<UserState>((set) => ({
+export const useUserStore = create<UserState>((set, get) => ({
   user: null,
   loading: true,
   error: null,
+  maxConversations: 30,
+  currentConversations: 0,
   setUser: (user) => set({ user }),
   setLoading: (loading) => set({ loading }),
   setError: (error) => set({ error }),
@@ -32,5 +38,10 @@ export const useUserStore = create<UserState>((set) => ({
     } finally {
       set({ loading: false });
     }
+  },
+  updateConversations: (count: number) => set({ currentConversations: count }),
+  isMaxConversations: () => {
+    const { maxConversations, currentConversations } = get();
+    return currentConversations >= maxConversations;
   },
 }));
