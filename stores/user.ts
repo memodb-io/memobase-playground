@@ -16,7 +16,7 @@ const supabase = createClient();
 
 export const useUserStore = create<UserState>((set) => ({
   user: null,
-  loading: false,
+  loading: true,
   error: null,
   setUser: (user) => set({ user }),
   setLoading: (loading) => set({ loading }),

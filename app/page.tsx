@@ -46,6 +46,7 @@ export default function Page() {
   const [events, setEvents] = useState<UserEvent[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const lastUserMessageRef = useRef<string>("");
+  const hasFetchedRef = useRef(false);
 
   const fetchProfile = async () => {
     setIsLoading(true);
@@ -151,13 +152,14 @@ export default function Page() {
 
   useEffect(() => {
     const checkUser = async () => {
-      if (user) {
+      if (user && !hasFetchedRef.current) {
+        hasFetchedRef.current = true;
         await fetchProfile();
         await fetchEvent();
       }
     };
     checkUser();
-  }, []);
+  }, [user]);
 
   const groupedProfiles = profiles.reduce((acc, profile) => {
     if (!acc[profile.topic]) {

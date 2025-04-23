@@ -26,10 +26,5 @@
       "bucket_name": "memobase-playground-inc-cache"
     }
   ],
-  "minify": true,
-  "build": {
-    "command": "npm run build",
-    "cwd": ".",
-    "watch_dir": "src"
-  }
+  "minify": true
 }
