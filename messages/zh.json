@@ -53,7 +53,8 @@
     "loginRequiredDescription": "请登录以继续使用此功能",
     "loggingIn": "登录中...",
     "emailAlreadyRegistered": "该邮箱已被注册，请直接登录",
-    "checkEmailForVerification": "请检查您的邮箱并完成验证"
+    "checkEmailForVerification": "请检查您的邮箱并完成验证",
+    "chatMaxConversations": "今日已达最大对话轮次"
   },
   "error": {
     "title": "出错了",

@@ -98,8 +98,7 @@ export default function Page() {
     api: "/api/chat",
     cloud: user ? cloud : undefined,
     onResponse: (response) => {
-      if (response.status === 401) {
-        openDialog();
+      if (response.status !== 200) {
         return;
       }
 
@@ -142,11 +141,17 @@ export default function Page() {
       }
     },
     onError: (error) => {
+      if (error.message.includes("429")) {
+        toast.error(t("chatMaxConversations"));
+        return;
+      }
+
       if (error.message.includes("401")) {
         openDialog();
-      } else {
-        toast.error(t("chatError"));
+        return;
       }
+
+      toast.error(t("chatError"));
     },
   });
 
