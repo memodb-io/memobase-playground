@@ -210,7 +210,7 @@ export default function Page() {
                       {t("noContent")}
                     </div>
                   ) : (
-                    <div className="grid gap-4 overflow-y-auto max-h-[calc(100vh-10rem)]">
+                    <div className="grid gap-4 overflow-y-auto max-h-[calc(100dvh-10rem)]">
                       {Object.entries(groupedProfiles).map(
                         ([topic, profiles]) => (
                           <Card key={topic}>
@@ -250,7 +250,7 @@ export default function Page() {
                   )}
                 </TabsContent>
                 <TabsContent value="events">
-                  <div className="overflow-y-auto max-h-[calc(100vh-10rem)]">
+                  <div className="overflow-y-auto max-h-[calc(100dvh-10rem)]">
                     <TimelineLayout
                       items={events.flatMap((event) => {
                         const deltas = event.event_data?.profile_delta || [];

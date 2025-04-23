@@ -4,7 +4,12 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Brain } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -21,7 +26,7 @@ export const AssistantSidebar: FC<PropsWithChildren> = ({ children }) => {
   if (isMobile) {
     return (
       <>
-        <div className="h-[calc(100vh-4rem)]">
+        <div className="h-[calc(100dvh-4rem)]">
           <Thread />
         </div>
         <Sheet open={open} onOpenChange={setOpen}>
@@ -47,19 +52,13 @@ export const AssistantSidebar: FC<PropsWithChildren> = ({ children }) => {
   return (
     <ResizablePanelGroup
       direction="horizontal"
-      className="!h-[calc(100vh-4rem)]"
+      className="!h-[calc(100dvh-4rem)]"
     >
-      <ResizablePanel
-        defaultSize={70}
-        minSize={30}
-      >
+      <ResizablePanel defaultSize={70} minSize={30}>
         <Thread />
       </ResizablePanel>
       <ResizableHandle withHandle />
-      <ResizablePanel
-        defaultSize={30}
-        minSize={30}
-      >
+      <ResizablePanel defaultSize={30} minSize={30}>
         {children}
       </ResizablePanel>
     </ResizablePanelGroup>
