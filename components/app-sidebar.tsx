@@ -13,6 +13,7 @@ import {
 import { ThreadList } from "@/components/assistant-ui/thread-list";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -21,10 +22,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <Link href="/">
                 <Image
                   className="rounded"
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/logo.png`}
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/logo.png`}
                   alt="Memobase logo"
                   width={38}
                   height={38}
@@ -34,7 +35,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <span className="font-semibold">Memobase</span>
                   <span className=""></span>
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

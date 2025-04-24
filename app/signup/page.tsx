@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signup } from "@/app/signup/actions";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 export default function SignUpPage() {
   const t = useTranslations("common");
@@ -56,9 +57,9 @@ export default function SignUpPage() {
                 </form>
                 <div className="text-center text-sm">
                   {t("alreadyHaveAccount")}{" "}
-                  <a href="/login" className="underline underline-offset-4">
+                  <Link href="/login" className="underline underline-offset-4">
                     {t("login")}
-                  </a>
+                  </Link>
                 </div>
               </div>
             </CardContent>

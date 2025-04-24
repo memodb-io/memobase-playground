@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTranslations } from "next-intl";
 import { useUserStore } from "@/stores/user";
+import Link from "next/link";
 
 export function UserMenu() {
   const t = useTranslations("common");
@@ -26,10 +27,10 @@ export function UserMenu() {
     return (
       <div className="flex gap-2">
         <Button variant="outline" asChild>
-          <a href="/login">{t("login")}</a>
+          <Link href="/login">{t("login")}</Link>
         </Button>
         <Button asChild>
-          <a href="/signup">{t("signup")}</a>
+          <Link href="/signup">{t("signup")}</Link>
         </Button>
       </div>
     );
@@ -56,7 +57,9 @@ export function UserMenu() {
         <DropdownMenuItem className="flex flex-col items-start">
           <div className="text-sm font-medium">{user.email}</div>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleLogout}>{t("logout")}</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>
+          {t("logout")}
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

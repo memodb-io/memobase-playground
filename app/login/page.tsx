@@ -15,6 +15,7 @@ import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
+import Link from "next/link";
 
 export default function LoginPage() {
   const t = useTranslations("common");
@@ -100,12 +101,12 @@ export default function LoginPage() {
                     <div className="grid gap-2">
                       <div className="flex items-center">
                         <Label htmlFor="password">{t("password")}</Label>
-                        <a
+                        <Link
                           href="#"
                           className="ml-auto text-sm underline-offset-4 hover:underline"
                         >
                           {t("forgotPassword")}
-                        </a>
+                        </Link>
                       </div>
                       <Input
                         id="password"
@@ -122,9 +123,9 @@ export default function LoginPage() {
                 </form>
                 <div className="text-center text-sm">
                   {t("noAccount")}{" "}
-                  <a href="/signup" className="underline underline-offset-4">
+                  <Link href="/signup" className="underline underline-offset-4">
                     {t("signup")}
-                  </a>
+                  </Link>
                 </div>
               </div>
             </CardContent>
