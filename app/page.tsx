@@ -96,11 +96,7 @@ export default function Page() {
   });
 
   const runtime = useChatRuntime({
-    api: `${
-      process.env["NEXT_PUBLIC_BASE_PATH"]
-        ? `/${process.env["NEXT_PUBLIC_BASE_PATH"]}`
-        : ""
-    }/api/chat`,
+    api: `${process.env["NEXT_PUBLIC_BASE_PATH"] || ""}/api/chat`,
     cloud: user ? cloud : undefined,
     onResponse: (response) => {
       if (response.status !== 200) {
