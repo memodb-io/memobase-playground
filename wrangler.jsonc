@@ -6,8 +6,8 @@
   "compatibility_flags": ["nodejs_compat"],
   "routes": [
     {
-      "pattern": "playground.memobase.io",
-      "custom_domain": true
+      "pattern": "*.memobase.io/playground/*",
+      "zone_name": "memobase.io"
     }
   ],
   "assets": {
