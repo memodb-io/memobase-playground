@@ -24,7 +24,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <a href="#">
                 <Image
                   className="rounded"
-                  src="/logo.png"
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/logo.png`}
                   alt="Memobase logo"
                   width={38}
                   height={38}
