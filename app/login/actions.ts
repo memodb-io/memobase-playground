@@ -13,7 +13,9 @@ export async function login(formData: FormData) {
   const data = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
-    redirectTo: process.env.NEXT_PUBLIC_BASE_URL!,
+    redirectTo:
+      process.env.NEXT_PUBLIC_BASE_URL! + process.env.NEXT_PUBLIC_BASE_PATH ||
+      "",
   };
 
   const { error } = await supabase.auth.signInWithPassword(data);

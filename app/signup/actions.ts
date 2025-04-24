@@ -11,7 +11,9 @@ export async function signup(formData: FormData) {
   const payload = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
-    redirectTo: process.env.NEXT_PUBLIC_BASE_URL!,
+    redirectTo:
+      process.env.NEXT_PUBLIC_BASE_URL! + process.env.NEXT_PUBLIC_BASE_PATH ||
+      "",
   };
 
   const { error, data } = await supabase.auth.signUp(payload);
