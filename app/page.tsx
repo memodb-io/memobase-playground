@@ -89,7 +89,7 @@ export default function Page() {
   };
 
   const cloud = new AssistantCloud({
-    baseUrl: `${process.env["NEXT_PUBLIC_BASE_URL"]}${process.env["NEXT_PUBLIC_BASE_PATH"]}/api/storage`,
+    baseUrl: `${process.env["NEXT_PUBLIC_BASE_URL"]}${process.env["NEXT_PUBLIC_BASE_PATH"] || ""}/api/storage`,
     anonymous: true,
   });
 

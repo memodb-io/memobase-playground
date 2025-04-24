@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ofetch } from "ofetch";
-import { ApiResponse } from "@/lib/api-response"
+import { ApiResponse } from "@/lib/api-response";
 
 type Method =
   | "GET"
@@ -23,7 +23,7 @@ const request = async <T = any>(
 ): Promise<T> => {
   return await ofetch<T>(url, {
     method,
-    baseURL: process.env.NEXT_PUBLIC_BASE_API,
+    baseURL: `${process.env["NEXT_PUBLIC_BASE_URL"]}${process.env["NEXT_PUBLIC_BASE_PATH"] || ""}`,
     params: data.params,
     headers: data.headers,
     credentials: "include",
@@ -56,4 +56,4 @@ const service = {
 
 export default service;
 
-export type Res<T> = ApiResponse<T>
+export type Res<T> = ApiResponse<T>;

@@ -2,7 +2,7 @@ import service, { Res } from "../http";
 import { UserProfile, UserEvent } from "@memobase/memobase";
 
 export const getProfile = (): Promise<Res<UserProfile[]>> =>
-  service.get(`${process.env["NEXT_PUBLIC_BASE_PATH"]}/api/memobase/profile`);
+  service.get("/api/memobase/profile");
 
 export const insertMessages = (
   messages: {
@@ -12,12 +12,12 @@ export const insertMessages = (
     created_at?: string | undefined;
   }[]
 ): Promise<Res<null>> =>
-  service.post(`${process.env["NEXT_PUBLIC_BASE_PATH"]}/api/memobase/insert`, {
+  service.post("/api/memobase/insert", {
     messages,
   });
 
 export const flash = (): Promise<Res<null>> =>
-  service.post(`${process.env["NEXT_PUBLIC_BASE_PATH"]}/api/memobase/flash`);
+  service.post("/api/memobase/flash");
 
 export const getEvent = (): Promise<Res<UserEvent[]>> =>
-  service.get(`${process.env["NEXT_PUBLIC_BASE_PATH"]}/api/memobase/event`);
+  service.get("/api/memobase/event");
