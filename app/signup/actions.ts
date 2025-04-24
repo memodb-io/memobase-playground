@@ -8,15 +8,10 @@ export async function signup(formData: FormData) {
   const supabase = await createClient();
   const t = await getTranslations("common");
 
-  const payload = {
+  const { error, data } = await supabase.auth.signUp({
     email: formData.get("email") as string,
     password: formData.get("password") as string,
-    redirectTo:
-      process.env.NEXT_PUBLIC_BASE_URL! + process.env.NEXT_PUBLIC_BASE_PATH ||
-      "",
-  };
-
-  const { error, data } = await supabase.auth.signUp(payload);
+  });
 
   if (error) {
     redirect(`/error?message=${encodeURIComponent(error.message)}`);
