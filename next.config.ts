@@ -7,6 +7,7 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig: NextConfig = {
   /* config options here */
   output: "standalone",
+  basePath: "/playground",
 };
 
 export default withNextIntl(nextConfig);
