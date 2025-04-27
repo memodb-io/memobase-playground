@@ -11,16 +11,19 @@ import {
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { useLoginDialog } from "@/stores/use-login-dialog";
+import { useRouter } from "next/navigation";
 
 export function LoginDialog() {
   const t = useTranslations("common");
   const [isLoading, setIsLoading] = useState(false);
   const { isOpen, closeDialog } = useLoginDialog();
+  const router = useRouter();
 
   const handleLogin = async () => {
     setIsLoading(true);
     try {
-      window.location.href = "/login";
+      router.push("/login");
+      closeDialog();
     } finally {
       setIsLoading(false);
     }
