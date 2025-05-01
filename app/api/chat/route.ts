@@ -26,11 +26,12 @@ export async function POST(req: Request) {
 
     const { messages, tools } = await req.json();
 
+    const finalSystemPrompt = `You're Memobase Assistant, a helpful assistant that demonstrates the capabilities of Memobase Memory. \n${context}`;
     const result = streamText({
-      model: openai("ep-20250124161018-5wh95"),
+      model: openai("ep-20250125104218-7gw5b"),
       messages,
       // forward system prompt and tools from the frontend
-      system: context,
+      system: finalSystemPrompt,
       tools: Object.fromEntries(
         Object.entries<{ parameters: unknown }>(tools).map(([name, tool]) => [
           name,
@@ -40,6 +41,8 @@ export async function POST(req: Request) {
         ])
       ),
     });
+    console.log(finalSystemPrompt);
+    console.log(result);
 
     const lastMessage =
       messages[messages.length - 1].content[

@@ -89,9 +89,8 @@ export default function Page() {
   };
 
   const cloud = new AssistantCloud({
-    baseUrl: `${process.env["NEXT_PUBLIC_BASE_URL"]}${
-      process.env["NEXT_PUBLIC_BASE_PATH"] || ""
-    }/api/storage`,
+    baseUrl: `${process.env["NEXT_PUBLIC_BASE_URL"]}${process.env["NEXT_PUBLIC_BASE_PATH"] || ""
+      }/api/storage`,
     anonymous: true,
   });
 
@@ -191,6 +190,7 @@ export default function Page() {
           </header>
           <AssistantSidebar>
             <div className="pt-0 px-2 md:pt-4 md:px-4">
+              <p className="text-lg font-semibold text-foreground mb-2 hidden md:block">{t("memory_section_title")}</p>
               <Tabs defaultValue="profiles" className="w-full">
                 <div className="flex items-center justify-between">
                   <TabsList>
@@ -202,9 +202,8 @@ export default function Page() {
                       fetchProfile();
                       fetchEvent();
                     }}
-                    className={`p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-all duration-200 ${
-                      isLoading ? "animate-spin" : ""
-                    }`}
+                    className={`p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-all duration-200 ${isLoading ? "animate-spin" : ""
+                      }`}
                     disabled={isLoading}
                   >
                     <RefreshCw className="w-5 h-5" />
