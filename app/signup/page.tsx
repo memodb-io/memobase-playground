@@ -13,6 +13,18 @@ import { Label } from "@/components/ui/label";
 import { signup } from "@/app/signup/actions";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { useFormStatus } from "react-dom";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  const t = useTranslations("common");
+
+  return (
+    <Button type="submit" className="w-full" disabled={pending}>
+      {pending ? t("signingUp") : t("signup")}
+    </Button>
+  );
+}
 
 export default function SignUpPage() {
   const t = useTranslations("common");
@@ -50,9 +62,7 @@ export default function SignUpPage() {
                         required
                       />
                     </div>
-                    <Button type="submit" className="w-full">
-                      {t("signup")}
-                    </Button>
+                    <SubmitButton />
                   </div>
                 </form>
                 <div className="text-center text-sm">

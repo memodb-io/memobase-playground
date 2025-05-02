@@ -55,7 +55,8 @@
     "loggingIn": "登录中...",
     "emailAlreadyRegistered": "该邮箱已被注册，请直接登录",
     "checkEmailForVerification": "请检查您的邮箱并完成验证",
-    "chatMaxConversations": "今日已达最大对话轮次，请明天再来～"
+    "chatMaxConversations": "今日已达最大对话轮次，请明天再来～",
+    "signingUp": "注册中..."
   },
   "error": {
     "title": "出错了",
