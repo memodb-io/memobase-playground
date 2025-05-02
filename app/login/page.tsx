@@ -16,6 +16,18 @@ import { useSearchParams } from "next/navigation";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import Link from "next/link";
+import { useFormStatus } from "react-dom";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  const t = useTranslations("common");
+
+  return (
+    <Button type="submit" className="w-full" disabled={pending}>
+      {pending ? t("loggingIn") : t("login")}
+    </Button>
+  );
+}
 
 export default function LoginPage() {
   const t = useTranslations("common");
@@ -116,9 +128,7 @@ export default function LoginPage() {
                         required
                       />
                     </div>
-                    <Button type="submit" className="w-full">
-                      {t("login")}
-                    </Button>
+                    <SubmitButton />
                   </div>
                 </form>
                 <div className="text-center text-sm">
