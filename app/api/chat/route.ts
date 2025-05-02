@@ -41,8 +41,6 @@ export async function POST(req: Request) {
         ])
       ),
     });
-    console.log(finalSystemPrompt);
-    console.log(result);
 
     const lastMessage =
       messages[messages.length - 1].content[
