@@ -1,6 +1,6 @@
 # Memobase Playground
 
-A playground project based on the open-source [Memobase](https://github.com/memobase) project, built with Supabase as the backend database.
+A playground project based on the open-source [Memobase](https://github.com/memodb-io/memobase) project, built with Supabase as the backend database.
 
 ## Overview
 
@@ -58,6 +58,39 @@ Create a `.env` file in the root directory with the following variables:
 ```env
 SUPABASE_URL=your_supabase_url
 SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+## Available Scripts
+
+This project uses pnpm as the package manager. Here are the available scripts:
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start development server with Turbopack
+pnpm dev
+
+# Build for production
+pnpm build
+
+# Start production server
+pnpm start
+
+# Run linting
+pnpm lint
+
+# Preview Cloudflare deployment locally
+pnpm preview
+
+# Deploy to Cloudflare
+pnpm deploy
+
+# Upload to Cloudflare
+pnpm upload
+
+# Generate Cloudflare environment types
+pnpm cf-typegen
 ```
 
 ## Development
