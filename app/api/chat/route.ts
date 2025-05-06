@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { memoBaseClient } from "@/utils/memobase/client";
 
 const openai = createOpenAI({
-  baseURL: "https://ark.cn-beijing.volces.com/api/v3",
+  baseURL: process.env.OPENAI_BASE_URL!,
   apiKey: process.env.OPENAI_API_KEY!,
 });
 
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 
     const finalSystemPrompt = `You're Memobase Assistant, a helpful assistant that demonstrates the capabilities of Memobase Memory. \n${context}`;
     const result = streamText({
-      model: openai("ep-20250125104218-7gw5b"),
+      model: openai(process.env.OPENAI_MODEL!),
       messages,
       // forward system prompt and tools from the frontend
       system: finalSystemPrompt,
