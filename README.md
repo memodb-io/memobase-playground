@@ -1,6 +1,12 @@
-https://github.com/user-attachments/assets/f9431519-4693-43df-aaaa-560d8f531de7
+<div align="center">
+  <h1>Memobase Playground</h1>
+  <p>
+    <a href="https://pypi.org/project/nano_manus/" > 
+    	<img src="https://github.com/user-attachments/assets/f9431519-4693-43df-aaaa-560d8f531de7">
+    </a>
+  </p>
+</div>
 
-# Memobase Playground
 
 A playground project based on the open-source [Memobase](https://github.com/memodb-io/memobase) project, built with Supabase as the backend database.
 
@@ -53,14 +59,26 @@ CREATE TABLE "public"."threads" (
 4. Configure your environment variables
 5. Start the development server
 
-## Environment Variables
+## Environment Setup
 
-Create a `.env` file in the root directory with the following variables:
+The project includes an `.env.example` file with the following variables that you should configure:
 
 ```env
-SUPABASE_URL=your_supabase_url
-SUPABASE_ANON_KEY=your_supabase_anon_key
+NEXT_PUBLIC_BASE_URL="http://localhost:3000"
+NEXT_PUBLIC_BASE_PATH="/playground"
+
+OPENAI_API_KEY=""          # Your OpenAI API key
+OPENAI_BASE_URL=""         # OpenAI API base URL (optional)
+OPENAI_MODEL=""            # OpenAI model to use (e.g., "gpt-3.5-turbo")
+
+NEXT_PUBLIC_SUPABASE_URL=""        # Your Supabase project URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY=""   # Your Supabase anonymous key
+
+NEXT_PUBLIC_MEMOBASE_PROJECT_URL="" # Memobase project URL (if connecting to Memobase)
+NEXT_PUBLIC_MEMOBASE_API_KEY=""     # Memobase API key (if connecting to Memobase)
 ```
+
+Copy the `.env.example` file to `.env` and fill in the required values for your environment.
 
 ## Available Scripts
 
