@@ -1,3 +1,5 @@
+https://github.com/user-attachments/assets/f9431519-4693-43df-aaaa-560d8f531de7
+
 # Memobase Playground
 
 A playground project based on the open-source [Memobase](https://github.com/memodb-io/memobase) project, built with Supabase as the backend database.
