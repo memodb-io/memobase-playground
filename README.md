@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Memobase Playground
+
+A playground project based on the open-source [Memobase](https://github.com/memobase) project, built with Supabase as the backend database.
+
+## Overview
+
+This project is a playground environment for experimenting with and extending the Memobase functionality. It provides a simplified setup for development and testing purposes.
+
+## Database Setup
+
+The project uses Supabase as its database backend. Below are the SQL statements to create the necessary tables:
+
+### Messages Table
+```sql
+CREATE TABLE "public"."messages" (
+    "id" uuid NOT NULL DEFAULT gen_random_uuid(),
+    "parent_id" uuid,
+    "thread_id" uuid NOT NULL,
+    "created_by" uuid NOT NULL,
+    "updated_by" uuid NOT NULL,
+    "format" text NOT NULL,
+    "content" text NOT NULL,
+    "height" integer,
+    "created_at" timestamptz NOT NULL DEFAULT now(),
+    "updated_at" timestamptz NOT NULL DEFAULT now()
+);
+```
+
+### Threads Table
+```sql
+CREATE TABLE "public"."threads" (
+    "id" uuid NOT NULL DEFAULT gen_random_uuid(),
+    "workspace_id" text NOT NULL,
+    "updated_by" uuid NOT NULL,
+    "title" text,
+    "is_archived" boolean NOT NULL DEFAULT false,
+    "external_id" text,
+    "metadata" jsonb,
+    "created_by" uuid NOT NULL,
+    "created_at" timestamptz NOT NULL DEFAULT now(),
+    "updated_at" timestamptz NOT NULL DEFAULT now(),
+    "last_message_at" timestamptz
+);
+```
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository
+2. Set up your Supabase project
+3. Run the database creation scripts
+4. Configure your environment variables
+5. Start the development server
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```env
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This is a playground project, so feel free to experiment and modify the codebase as needed. The project structure follows the original Memobase architecture but with simplified components for easier development and testing.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Contributing
 
-## Learn More
+Since this is a playground project, contributions are welcome but not actively maintained. Feel free to fork and modify for your own needs.
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is based on Memobase and follows its original license. Please refer to the original Memobase repository for license details.
