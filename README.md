@@ -51,6 +51,162 @@ CREATE TABLE "public"."threads" (
 );
 ```
 
+### Database Functions
+<details>
+
+<summary>Click to expand</summary>
+
+```sql
+CREATE OR REPLACE FUNCTION public.get_threads_for_user(uid uuid)
+ RETURNS json
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+AS $function$BEGIN
+  RETURN (
+    SELECT json_build_object(
+      'threads', COALESCE(json_agg(t), '[]'::json)
+    )
+    FROM (
+      SELECT *
+      FROM threads
+      WHERE created_by = uid AND is_archived = false
+      ORDER BY created_at DESC
+    ) t
+  );
+END;$function$
+
+CREATE OR REPLACE FUNCTION public.create_thread(uid uuid, last_message_at timestamp with time zone)
+ RETURNS json
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+AS $function$DECLARE
+  thread_id UUID;
+BEGIN
+  INSERT INTO threads (
+    id,
+    workspace_id,
+    created_by,
+    updated_by,
+    title,
+    last_message_at
+  )
+  VALUES (
+    uuid_generate_v4(),
+    'workspace',
+    uid,
+    uid,
+    '',
+    last_message_at
+  )
+  RETURNING id INTO thread_id;
+
+  RETURN json_build_object('thread_id', thread_id);
+END;$function$
+
+CREATE OR REPLACE FUNCTION public.update_thread_archived(uid uuid, thread_id uuid, archived boolean)
+ RETURNS json
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+AS $function$BEGIN
+  UPDATE threads
+  SET
+    is_archived = archived,
+    updated_by = uid,
+    updated_at = now()
+  WHERE id = thread_id
+    AND created_by = uid;
+
+  RETURN json_build_object();
+END;$function$
+
+CREATE OR REPLACE FUNCTION public.get_messages_by_thread_and_user(uid uuid, tid uuid)
+ RETURNS json
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+AS $function$BEGIN
+  RETURN (
+    WITH message_data AS (
+      SELECT
+        m.id,
+        m.parent_id,
+        m.thread_id,
+        m.created_by,
+        m.created_at,
+        m.updated_by,
+        m.updated_at,
+        m.format,
+        m.content,
+        m.height
+      FROM
+        messages m
+      WHERE
+        m.thread_id = tid
+        AND m.created_by = uid
+      ORDER BY
+        m.created_at DESC
+    )
+    SELECT json_build_object(
+      'messages', COALESCE(json_agg(message_data), '[]'::json)
+    )
+    FROM message_data
+  );
+END;$function$
+
+CREATE OR REPLACE FUNCTION public.create_message(uid uuid, tid uuid, pid uuid, fmt character varying, c json)
+ RETURNS json
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+AS $function$DECLARE
+  mid UUID;
+BEGIN
+  INSERT INTO messages (
+    id,
+    thread_id,
+    parent_id,
+    created_by,
+    updated_by,
+    content,
+    format,
+    created_at,
+    updated_at
+  )
+  VALUES (
+    uuid_generate_v4(),
+    tid,
+    pid,
+    uid,
+    uid,
+    c,
+    fmt,
+    now(),
+    now()
+  )
+  RETURNING id INTO mid;
+
+  RETURN json_build_object(
+    'message_id', mid
+  );
+END;$function$
+
+CREATE OR REPLACE FUNCTION public.get_message_count_by_uid(uid uuid)
+ RETURNS integer
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+AS $function$DECLARE
+    message_count INTEGER;
+BEGIN
+    SELECT COUNT(*)
+    INTO message_count
+    FROM messages
+    WHERE created_by = uid
+        AND created_at >= date_trunc('day', now());
+
+    RETURN message_count;
+END;$function$
+```
+
+</details>
+
 ## Getting Started
 
 1. Clone the repository
