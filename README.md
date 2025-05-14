@@ -1,11 +1,12 @@
 <div align="center">
   <h1>Memobase Playground</h1>
   <p>
-    <a href="https://pypi.org/project/nano_manus/" > 
-    	<img src="https://github.com/user-attachments/assets/f9431519-4693-43df-aaaa-560d8f531de7">
+    <a href="https://app.memobase.io/playground" > 
+    	<img style="border-radius: 12px;" src="https://github.com/user-attachments/assets/f9431519-4693-43df-aaaa-560d8f531de7">
     </a>
   </p>
 </div>
+
 
 
 A playground project based on the open-source [Memobase](https://github.com/memodb-io/memobase) project, built with Supabase as the backend database.
