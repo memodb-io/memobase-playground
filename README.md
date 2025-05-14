@@ -1,8 +1,12 @@
 <div align="center">
   <h1>Memobase Playground</h1>
   <p>
+    	<img src="https://img.shields.io/badge/Memobase-Playground-blue">
+      <img src="https://img.shields.io/badge/license-MIT-green">
+  </p>
+  <p>
     <a href="https://app.memobase.io/playground" > 
-    	<img style="border-radius: 12px;" src="https://github.com/user-attachments/assets/f9431519-4693-43df-aaaa-560d8f531de7">
+    	<img style="border-radius: 12px; width: 700px;" src="https://github.com/user-attachments/assets/f9431519-4693-43df-aaaa-560d8f531de7">
     </a>
   </p>
 </div>
@@ -11,9 +15,153 @@
 
 A playground project based on the open-source [Memobase](https://github.com/memodb-io/memobase) project, built with Supabase as the backend database.
 
+
 ## Overview
 
 This project is a playground environment for experimenting with and extending the Memobase functionality. It provides a simplified setup for development and testing purposes.
+
+## ✨ Features
+
+### 🤖 AI-Powered Assistant
+- Interactive chat interface with AI assistant
+- Smart suggestions for conversation starters
+- Contextual memory of user interactions
+- Support for multiple message formats
+
+### 👤 User Management
+- Secure authentication system
+- Social login with Google and GitHub
+- Anonymous access support
+- JWT-based token management
+- Refresh token functionality
+
+### 💬 Thread Management
+- Create and manage conversation threads
+- Archive/unarchive threads
+- Thread-based message organization
+- Real-time message updates
+
+### 🌐 Internationalization
+- Multi-language support (English, Chinese)
+- Dynamic language switching
+- Localized UI components
+- RTL support ready
+
+### 🎨 Modern UI/UX
+- Responsive design
+- Dark/Light theme support
+- Beautiful timeline visualization
+- Interactive components
+- Toast notifications
+- Loading states and animations
+
+### 🔒 Security
+- Secure token management
+- Environment variable configuration
+- Protected API routes
+- Rate limiting support
+
+### 🚀 Performance
+- Next.js 15 with Turbopack
+- Cloudflare deployment support
+- Optimized asset loading
+- Incremental static regeneration
+
+### 📱 Mobile Ready
+- Responsive design
+- Touch-friendly interface
+- Mobile-optimized components
+- Cross-device compatibility
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TailwindCSS
+- **Backend**: Supabase
+- **AI Integration**: OpenAI
+- **Authentication**: JWT, OAuth
+- **Deployment**: Cloudflare
+- **Package Manager**: pnpm
+- **UI Components**: shadcn/ui, Radix UI
+- **State Management**: Zustand
+- **Animation**: Framer Motion
+- **Styling**: TailwindCSS, CSS Variables
+
+
+
+## Getting Started
+
+1. Clone the repository
+2. Set up your Supabase project
+3. Run the database creation scripts
+4. Configure your environment variables
+5. Start the development server
+
+## Environment Setup
+
+The project includes an `.env.example` file with the following variables that you should configure:
+
+```env
+NEXT_PUBLIC_BASE_URL="http://localhost:3000"
+NEXT_PUBLIC_BASE_PATH="/playground"
+
+OPENAI_API_KEY=""          # Your OpenAI API key
+OPENAI_BASE_URL=""         # OpenAI API base URL (optional)
+OPENAI_MODEL=""            # OpenAI model to use (e.g., "gpt-3.5-turbo")
+
+NEXT_PUBLIC_SUPABASE_URL=""        # Your Supabase project URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY=""   # Your Supabase anonymous key
+
+NEXT_PUBLIC_MEMOBASE_PROJECT_URL="" # Memobase project URL (if connecting to Memobase)
+NEXT_PUBLIC_MEMOBASE_API_KEY=""     # Memobase API key (if connecting to Memobase)
+```
+
+Copy the `.env.example` file to `.env` and fill in the required values for your environment.
+
+## Available Scripts
+
+This project uses pnpm as the package manager. Here are the available scripts:
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start development server with Turbopack
+pnpm dev
+
+# Build for production
+pnpm build
+
+# Start production server
+pnpm start
+
+# Run linting
+pnpm lint
+
+# Preview Cloudflare deployment locally
+pnpm preview
+
+# Deploy to Cloudflare
+pnpm deploy
+
+# Upload to Cloudflare
+pnpm upload
+
+# Generate Cloudflare environment types
+pnpm cf-typegen
+```
+
+## Development
+
+This is a playground project, so feel free to experiment and modify the codebase as needed. The project structure follows the original Memobase architecture but with simplified components for easier development and testing.
+
+## Contributing
+
+Since this is a playground project, contributions are welcome but not actively maintained. Feel free to fork and modify for your own needs.
+
+## License
+
+This project is based on Memobase and follows its original license. Please refer to the original Memobase repository for license details.
+
 
 ## Database Setup
 
@@ -207,77 +355,3 @@ END;$function$
 ```
 
 </details>
-
-## Getting Started
-
-1. Clone the repository
-2. Set up your Supabase project
-3. Run the database creation scripts
-4. Configure your environment variables
-5. Start the development server
-
-## Environment Setup
-
-The project includes an `.env.example` file with the following variables that you should configure:
-
-```env
-NEXT_PUBLIC_BASE_URL="http://localhost:3000"
-NEXT_PUBLIC_BASE_PATH="/playground"
-
-OPENAI_API_KEY=""          # Your OpenAI API key
-OPENAI_BASE_URL=""         # OpenAI API base URL (optional)
-OPENAI_MODEL=""            # OpenAI model to use (e.g., "gpt-3.5-turbo")
-
-NEXT_PUBLIC_SUPABASE_URL=""        # Your Supabase project URL
-NEXT_PUBLIC_SUPABASE_ANON_KEY=""   # Your Supabase anonymous key
-
-NEXT_PUBLIC_MEMOBASE_PROJECT_URL="" # Memobase project URL (if connecting to Memobase)
-NEXT_PUBLIC_MEMOBASE_API_KEY=""     # Memobase API key (if connecting to Memobase)
-```
-
-Copy the `.env.example` file to `.env` and fill in the required values for your environment.
-
-## Available Scripts
-
-This project uses pnpm as the package manager. Here are the available scripts:
-
-```bash
-# Install dependencies
-pnpm install
-
-# Start development server with Turbopack
-pnpm dev
-
-# Build for production
-pnpm build
-
-# Start production server
-pnpm start
-
-# Run linting
-pnpm lint
-
-# Preview Cloudflare deployment locally
-pnpm preview
-
-# Deploy to Cloudflare
-pnpm deploy
-
-# Upload to Cloudflare
-pnpm upload
-
-# Generate Cloudflare environment types
-pnpm cf-typegen
-```
-
-## Development
-
-This is a playground project, so feel free to experiment and modify the codebase as needed. The project structure follows the original Memobase architecture but with simplified components for easier development and testing.
-
-## Contributing
-
-Since this is a playground project, contributions are welcome but not actively maintained. Feel free to fork and modify for your own needs.
-
-## License
-
-This project is based on Memobase and follows its original license. Please refer to the original Memobase repository for license details.
