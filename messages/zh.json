@@ -19,7 +19,6 @@
     "noAccount": "还没有账号？",
     "signInWithGoogle": "使用 Google 登录",
     "signInWithGithub": "使用 GitHub 登录",
-    "assistantPanel": "助手面板",
     "getRecordsFailed": "获取记录失败",
     "insertRecordsFailed": "保存记录失败",
     "flashRecordsFailed": "更新记录失败",
@@ -62,5 +61,8 @@
     "title": "出错了",
     "defaultMessage": "抱歉，发生了一些错误",
     "backToLogin": "返回登录页面"
+  },
+  "navigation": {
+    "example": "示例"
   }
 }

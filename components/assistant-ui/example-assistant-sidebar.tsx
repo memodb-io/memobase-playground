@@ -16,7 +16,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import type { FC, PropsWithChildren } from "react";
 import { useTranslations } from "next-intl";
 
-import { Thread } from "@/components/assistant-ui/thread";
+import { Thread } from "@/components/assistant-ui/example-thread";
 
 export const AssistantSidebar: FC<PropsWithChildren> = ({ children }) => {
   const t = useTranslations("common");

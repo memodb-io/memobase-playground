@@ -19,7 +19,6 @@
     "noAccount": "Don't have an account?",
     "signInWithGoogle": "Sign in with Google",
     "signInWithGithub": "Sign in with GitHub",
-    "assistantPanel": "User Memory",
     "getRecordsFailed": "Failed to get records",
     "insertRecordsFailed": "Failed to save records",
     "flashRecordsFailed": "Failed to update records",
@@ -62,5 +61,8 @@
     "title": "Error",
     "defaultMessage": "Sorry, something went wrong",
     "backToLogin": "Back to Login"
+  },
+  "navigation": {
+    "example": "Example"
   }
 }
