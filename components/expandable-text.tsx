@@ -26,7 +26,12 @@ export function ExpandableText({
   return (
     <div className="flex">
       <p
-        className={classNames("overflow-hidden", "break-words", lineClampClass)}
+        className={classNames(
+          "overflow-hidden",
+          "break-words",
+          "whitespace-pre-line",
+          lineClampClass
+        )}
       >
         {text}
       </p>
