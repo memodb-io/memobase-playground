@@ -53,7 +53,7 @@ export const Thread: FC<{ desc: string }> = ({ desc }) => {
 
 const ThreadAlert: FC<{ desc: string }> = ({ desc }) => {
   return (
-    <Alert>
+    <Alert className="max-w-[var(--thread-max-width)]">
       <BadgeInfo className="h-4 w-4" />
       <AlertDescription>{desc}</AlertDescription>
     </Alert>
