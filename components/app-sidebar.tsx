@@ -10,12 +10,15 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { ThreadList } from "@/components/assistant-ui/thread-list";
+import { NavMain } from "@/components/nav-main";
 
 import Image from "next/image";
 import Link from "next/link";
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  children,
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
@@ -39,11 +42,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
+        <NavMain />
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <ThreadList />
-        </SidebarGroup>
+        <SidebarGroup>{children}</SidebarGroup>
       </SidebarContent>
       <SidebarRail />
     </Sidebar>

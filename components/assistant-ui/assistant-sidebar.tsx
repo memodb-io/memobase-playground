@@ -9,31 +9,35 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
+  SheetDescription,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Brain } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import type { FC, PropsWithChildren } from "react";
-import { useTranslations } from "next-intl";
+import type { FC, PropsWithChildren, ReactNode } from "react";
 
-import { Thread } from "@/components/assistant-ui/thread";
+interface AssistantSidebarProps extends PropsWithChildren {
+  threadSlot?: ReactNode;
+}
 
-export const AssistantSidebar: FC<PropsWithChildren> = ({ children }) => {
-  const t = useTranslations("common");
+export const AssistantSidebar: FC<AssistantSidebarProps> = ({
+  children,
+  threadSlot,
+}) => {
   const isMobile = useIsMobile();
   const [open, setOpen] = React.useState(false);
 
   if (isMobile) {
     return (
       <>
-        <div className="h-[calc(100dvh-4rem)]">
-          <Thread />
-        </div>
+        <div className="h-[calc(100dvh-4rem)]">{threadSlot}</div>
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetContent side="right" className="w-[300px] p-0">
-            <SheetHeader>
-              <SheetTitle>{t("assistantPanel")}</SheetTitle>
-            </SheetHeader>
+          <SheetHeader className="hidden">
+            <SheetTitle>Assistant</SheetTitle>
+            <SheetDescription>Assistant</SheetDescription>
+          </SheetHeader>
+
+          <SheetContent side="right" className="p-0">
             {children}
           </SheetContent>
         </Sheet>
@@ -55,7 +59,7 @@ export const AssistantSidebar: FC<PropsWithChildren> = ({ children }) => {
       className="!h-[calc(100dvh-4rem)]"
     >
       <ResizablePanel defaultSize={70} minSize={30}>
-        <Thread />
+        {threadSlot}
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel defaultSize={30} minSize={30}>

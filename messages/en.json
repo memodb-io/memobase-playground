@@ -19,7 +19,6 @@
     "noAccount": "Don't have an account?",
     "signInWithGoogle": "Sign in with Google",
     "signInWithGithub": "Sign in with GitHub",
-    "assistantPanel": "User Memory",
     "getRecordsFailed": "Failed to get records",
     "insertRecordsFailed": "Failed to save records",
     "flashRecordsFailed": "Failed to update records",
@@ -48,7 +47,8 @@
     "thread": {
       "new": "New Thread",
       "newChat": "New Chat",
-      "archive": "Archive thread"
+      "archive": "Archive thread",
+      "citation": "This data is extracted from "
     },
     "loginRequired": "Login required",
     "loginRequiredDescription": "Please login to continue using this feature",
@@ -62,5 +62,8 @@
     "title": "Error",
     "defaultMessage": "Sorry, something went wrong",
     "backToLogin": "Back to Login"
+  },
+  "navigation": {
+    "example": "Example"
   }
 }
