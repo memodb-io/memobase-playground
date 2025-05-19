@@ -47,7 +47,8 @@
     "thread": {
       "new": "New Thread",
       "newChat": "New Chat",
-      "archive": "Archive thread"
+      "archive": "Archive thread",
+      "citation": "This data is extracted from "
     },
     "loginRequired": "Login required",
     "loginRequiredDescription": "Please login to continue using this feature",

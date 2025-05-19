@@ -11,6 +11,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TimelineLayout } from "@/components/timeline/timeline-layout";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function UserMemory({
   isLoading,
@@ -26,6 +29,7 @@ export function UserMemory({
   onRefresh?: () => void;
 }) {
   const t = useTranslations("common");
+  const isMobile = useIsMobile();
 
   const groupedProfiles = profiles.reduce((acc, profile) => {
     if (!acc[profile.topic]) {
@@ -36,8 +40,8 @@ export function UserMemory({
   }, {} as Record<string, UserProfile[]>);
 
   return (
-    <div className="pt-0 px-2 md:pt-4 md:px-4">
-      <p className="text-lg font-semibold text-foreground mt-2 mb-4">
+    <div className="pt-2 px-2 md:pt-8 md:px-4">
+      <p className="text-lg font-semibold text-foreground mb-4">
         {t("memory_section_title")}
         {badge && <Badge className="ml-2">{badge}</Badge>}
       </p>
@@ -60,46 +64,70 @@ export function UserMemory({
           )}
         </div>
         <TabsContent value="profiles">
-          {profiles.length === 0 ? (
-            <div className="p-8 text-center text-sm text-muted-foreground">
-              {t("noContent")}
+          {isLoading ? (
+            <div className="flex flex-col space-y-3">
+              <Skeleton className="h-[200px] w-full rounded-xl" />
+              <Skeleton className="h-[200px] w-full rounded-xl" />
+              <Skeleton className="h-[200px] w-full rounded-xl" />
             </div>
           ) : (
-            <div className="grid gap-4 overflow-y-auto max-h-[calc(100dvh-10rem)]">
-              {Object.entries(groupedProfiles).map(([topic, profiles]) => (
-                <Card key={topic}>
-                  <CardHeader>
-                    <CardTitle>{topic}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {profiles.map((profile) => {
-                        const Icon = getTopicIcon(profile.sub_topic);
-                        return (
-                          <div
-                            key={profile.id}
-                            className="border-b pb-4 last:pb-0 last:border-b-0"
-                          >
-                            <div className="font-medium text-sm text-muted-foreground mb-1 flex items-center gap-2">
-                              <Icon className="w-4 h-4" />
-                              {profile.sub_topic}
-                            </div>
-                            <div className="text-sm">{profile.content}</div>
-                            <div className="text-xs text-muted-foreground mt-2">
-                              {new Date(profile.created_at).toLocaleString()}
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            <>
+              {profiles.length === 0 ? (
+                <div className="p-8 text-center text-sm text-muted-foreground">
+                  {t("noContent")}
+                </div>
+              ) : (
+                <div
+                  className={`grid gap-4 overflow-y-auto ${
+                    isMobile
+                      ? "max-h-[calc(100dvh-7rem)]"
+                      : "max-h-[calc(100dvh-13rem)]"
+                  }`}
+                >
+                  {Object.entries(groupedProfiles).map(([topic, profiles]) => (
+                    <Card key={topic}>
+                      <CardHeader>
+                        <CardTitle>{topic}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-4">
+                          {profiles.map((profile) => {
+                            const Icon = getTopicIcon(profile.sub_topic);
+                            return (
+                              <div
+                                key={profile.id}
+                                className="border-b pb-4 last:pb-0 last:border-b-0"
+                              >
+                                <div className="font-medium text-sm text-muted-foreground mb-1 flex items-center gap-2">
+                                  <Icon className="w-4 h-4" />
+                                  {profile.sub_topic}
+                                </div>
+                                <div className="text-sm">{profile.content}</div>
+                                <div className="text-xs text-muted-foreground mt-2">
+                                  {new Date(
+                                    profile.created_at
+                                  ).toLocaleString()}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </TabsContent>
         <TabsContent value="events">
-          <div className="overflow-y-auto max-h-[calc(100dvh-10rem)]">
+          <div
+            className={`overflow-y-auto ${
+              isMobile
+                ? "max-h-[calc(100dvh-7rem)]"
+                : "max-h-[calc(100dvh-13rem)]"
+            }`}
+          >
             <TimelineLayout
               items={events.flatMap((event) => {
                 const deltas = event.event_data?.profile_delta || [];

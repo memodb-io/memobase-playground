@@ -4,7 +4,13 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Brain } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -26,7 +32,12 @@ export const AssistantSidebar: FC<AssistantSidebarProps> = ({
       <>
         <div className="h-[calc(100dvh-4rem)]">{threadSlot}</div>
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetContent side="right" className="w-[300px] p-0">
+          <SheetHeader className="hidden">
+            <SheetTitle>Assistant</SheetTitle>
+            <SheetDescription>Assistant</SheetDescription>
+          </SheetHeader>
+
+          <SheetContent side="right" className="p-0">
             {children}
           </SheetContent>
         </Sheet>

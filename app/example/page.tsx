@@ -34,7 +34,7 @@ export default function Page() {
   const [events, setEvents] = useState<UserEvent[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [threads, setThreads] = useState<ThreadExample[]>([]);
-  const [desc, setDesc] = useState<string>("");
+  const [thread, setThread] = useState<ThreadExample>();
 
   const cloud = new AssistantCloud({
     baseUrl: `${process.env["NEXT_PUBLIC_BASE_URL"]}${
@@ -92,7 +92,7 @@ export default function Page() {
           <ThreadList
             onItemClick={(i) => {
               if (threads.length === 0) return;
-              setDesc(threads[i].desc);
+              setThread(threads[i]);
               fetchMemory(threads[i].id);
             }}
           />
@@ -107,7 +107,9 @@ export default function Page() {
               <UserMenu />
             </div>
           </header>
-          <AssistantSidebar threadSlot={<Thread desc={desc} />}>
+          <AssistantSidebar
+            threadSlot={<Thread thread={thread} isLoading={isLoading} />}
+          >
             <UserMemory
               isLoading={isLoading}
               badge="preview"

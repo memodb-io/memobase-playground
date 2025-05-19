@@ -12,14 +12,25 @@ import {
   ChevronRightIcon,
   CopyIcon,
   BadgeInfo,
+  ArrowUpRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { MarkdownText } from "@/components/assistant-ui/markdown-text";
 import { TooltipIconButton } from "@/components/assistant-ui/tooltip-icon-button";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { ExpandableText } from "@/components/expandable-text";
+import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export const Thread: FC<{ desc: string }> = ({ desc }) => {
+import { ThreadExample } from "@/types";
+import Link from "next/link";
+
+export const Thread: FC<{ thread?: ThreadExample; isLoading?: boolean }> = ({
+  thread,
+  isLoading,
+}) => {
   return (
     <ThreadPrimitive.Root
       className="bg-background box-border flex h-full flex-col overflow-hidden"
@@ -27,36 +38,78 @@ export const Thread: FC<{ desc: string }> = ({ desc }) => {
         ["--thread-max-width" as string]: "42rem",
       }}
     >
+      {thread && <ThreadAlert thread={thread} />}
+      <Separator className="my-2" />
+
       <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-scroll scroll-smooth bg-inherit px-4 pt-8">
-        {desc && <ThreadAlert desc={desc} />}
+        {isLoading ? (
+          <div className="w-full max-w-[var(--thread-max-width)] flex flex-col space-y-3">
+            <Skeleton className="h-[200px] w-2/3 rounded-xl ml-auto" />
+            <Skeleton className="h-[200px] w-2/3 rounded-xl mr-auto" />
+            <Skeleton className="h-[200px] w-2/3 rounded-xl ml-auto" />
+          </div>
+        ) : (
+          <>
+            {!thread && <ThreadWelcome />}
 
-        <ThreadWelcome />
+            <ThreadPrimitive.Messages
+              components={{
+                UserMessage: UserMessage,
+                AssistantMessage: AssistantMessage,
+              }}
+            />
 
-        <ThreadPrimitive.Messages
-          components={{
-            UserMessage: UserMessage,
-            AssistantMessage: AssistantMessage,
-          }}
-        />
+            <ThreadPrimitive.If empty={false}>
+              <div className="min-h-8 flex-grow" />
+            </ThreadPrimitive.If>
 
-        <ThreadPrimitive.If empty={false}>
-          <div className="min-h-8 flex-grow" />
-        </ThreadPrimitive.If>
-
-        <div className="sticky bottom-0 mt-3 flex w-full max-w-[var(--thread-max-width)] flex-col items-center justify-end rounded-t-lg bg-inherit pb-4">
-          <ThreadScrollToBottom />
-        </div>
+            <div className="sticky bottom-0 mt-3 flex w-full max-w-[var(--thread-max-width)] flex-col items-center justify-end rounded-t-lg bg-inherit pb-4">
+              <ThreadScrollToBottom />
+            </div>
+          </>
+        )}
       </ThreadPrimitive.Viewport>
     </ThreadPrimitive.Root>
   );
 };
 
-const ThreadAlert: FC<{ desc: string }> = ({ desc }) => {
+const ThreadAlert: FC<{ thread: ThreadExample }> = ({ thread }) => {
+  const t = useTranslations("common");
+
   return (
-    <Alert className="max-w-[var(--thread-max-width)]">
-      <BadgeInfo className="h-4 w-4" />
-      <AlertDescription>{desc}</AlertDescription>
-    </Alert>
+    <div className="mx-auto mt-2 px-4">
+      <Alert className="max-w-[var(--thread-max-width)]">
+        <BadgeInfo className="h-4 w-4" />
+        {thread.citation && (
+          <AlertTitle className="group/item">
+            <Link
+              href={thread.citation.url}
+              target="_blank"
+              className="flex items-center"
+            >
+              <span className="group-hover/item:underline">{`${t(
+                "thread.citation"
+              )}${thread.citation.name}`}</span>
+              <ArrowUpRight className="ml-1 h-4 w-4 shrink-0 opacity-50 group-hover/item:opacity-80" />
+            </Link>
+          </AlertTitle>
+        )}
+        {thread.desc && (
+          <AlertDescription>
+            <ExpandableText text={thread.desc} maxLines={3} />
+            {thread.tags && (
+              <div className="space-y-2">
+                {thread.tags.map((tag) => (
+                  <Badge key={tag} className="mr-2">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            )}
+          </AlertDescription>
+        )}
+      </Alert>
+    </div>
   );
 };
 

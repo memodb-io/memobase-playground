@@ -218,14 +218,9 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
 
     const content = (
       <div
-        className="grid grid-cols-[1fr_auto_1fr] gap-4 items-start"
+        className="grid grid-cols-[80px_auto] gap-4 items-start"
         {...(status === "in-progress" ? { "aria-current": "step" } : {})}
       >
-        {/* Date */}
-        <div className="flex flex-col justify-start pt-1">
-          <TimelineTime className="text-right pr-4">{date}</TimelineTime>
-        </div>
-
         {/* Timeline dot and connector */}
         <div className="flex flex-col items-center">
           <div className="relative z-10">
@@ -242,7 +237,11 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
         {/* Content */}
         <TimelineContent>
           <TimelineHeader>
-            <TimelineTitle>{title}</TimelineTitle>
+            <TimelineTitle>
+              {/* Date */}
+              <TimelineTime className="text-right pr-4">{date}</TimelineTime>
+              <div>{title}</div>
+            </TimelineTitle>
           </TimelineHeader>
           <TimelineDescription>{description}</TimelineDescription>
         </TimelineContent>

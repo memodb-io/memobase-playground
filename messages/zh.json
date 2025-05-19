@@ -47,7 +47,8 @@
     "thread": {
       "new": "新建对话",
       "newChat": "新对话",
-      "archive": "归档对话"
+      "archive": "归档对话",
+      "citation": "这些数据是从以下来源提取的 "
     },
     "loginRequired": "需要登录",
     "loginRequiredDescription": "请登录以继续使用此功能",
