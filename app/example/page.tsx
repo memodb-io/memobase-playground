@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { AssistantRuntimeProvider, AssistantCloud } from "@assistant-ui/react";
 
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
-import { AssistantSidebar } from "@/components/assistant-ui/example-assistant-sidebar";
+import { AssistantSidebar } from "@/components/assistant-ui/assistant-sidebar";
 import { UserMenu } from "@/components/user-menu";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
@@ -22,6 +22,7 @@ import { toast } from "sonner";
 import { LangSwitch } from "@/components/lang-switch";
 import { ThreadList } from "@/components/assistant-ui/example-thread-list";
 import { UserMemory } from "@/components/user-memory";
+import { Thread } from "@/components/assistant-ui/example-thread";
 
 import { useTranslations } from "next-intl";
 import { getMemoryExample, getThreadsExample } from "@/api/models/memobase";
@@ -33,6 +34,7 @@ export default function Page() {
   const [events, setEvents] = useState<UserEvent[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [threads, setThreads] = useState<ThreadExample[]>([]);
+  const [desc, setDesc] = useState<string>("");
 
   const cloud = new AssistantCloud({
     baseUrl: `${process.env["NEXT_PUBLIC_BASE_URL"]}${
@@ -90,6 +92,7 @@ export default function Page() {
           <ThreadList
             onItemClick={(i) => {
               if (threads.length === 0) return;
+              setDesc(threads[i].desc);
               fetchMemory(threads[i].id);
             }}
           />
@@ -104,9 +107,10 @@ export default function Page() {
               <UserMenu />
             </div>
           </header>
-          <AssistantSidebar>
+          <AssistantSidebar threadSlot={<Thread desc={desc} />}>
             <UserMemory
               isLoading={isLoading}
+              badge="preview"
               events={events}
               profiles={profiles}
             />

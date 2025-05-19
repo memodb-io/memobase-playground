@@ -34,6 +34,7 @@ export interface TimelineProps {
 
 export interface ThreadExample {
   id: string;
+  desc: string;
 }
 
 export interface MemoryExample {

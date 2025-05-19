@@ -10,16 +10,19 @@ import { getTopicIcon } from "@/components/icons/topic-icons";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TimelineLayout } from "@/components/timeline/timeline-layout";
+import { Badge } from "@/components/ui/badge";
 
 export function UserMemory({
   isLoading,
   profiles,
   events,
+  badge,
   onRefresh,
 }: {
   isLoading: boolean;
   profiles: UserProfile[];
   events: UserEvent[];
+  badge?: string;
   onRefresh?: () => void;
 }) {
   const t = useTranslations("common");
@@ -34,8 +37,9 @@ export function UserMemory({
 
   return (
     <div className="pt-0 px-2 md:pt-4 md:px-4">
-      <p className="text-lg font-semibold text-foreground mb-2 hidden md:block">
+      <p className="text-lg font-semibold text-foreground mt-2 mb-4">
         {t("memory_section_title")}
+        {badge && <Badge className="ml-2">{badge}</Badge>}
       </p>
       <Tabs defaultValue="profiles" className="w-full">
         <div className="flex items-center justify-between">

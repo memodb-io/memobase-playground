@@ -11,13 +11,15 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   CopyIcon,
+  BadgeInfo,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { MarkdownText } from "@/components/assistant-ui/markdown-text";
 import { TooltipIconButton } from "@/components/assistant-ui/tooltip-icon-button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
-export const Thread: FC = () => {
+export const Thread: FC<{ desc: string }> = ({ desc }) => {
   return (
     <ThreadPrimitive.Root
       className="bg-background box-border flex h-full flex-col overflow-hidden"
@@ -26,6 +28,8 @@ export const Thread: FC = () => {
       }}
     >
       <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-scroll scroll-smooth bg-inherit px-4 pt-8">
+        {desc && <ThreadAlert desc={desc} />}
+
         <ThreadWelcome />
 
         <ThreadPrimitive.Messages
@@ -44,6 +48,15 @@ export const Thread: FC = () => {
         </div>
       </ThreadPrimitive.Viewport>
     </ThreadPrimitive.Root>
+  );
+};
+
+const ThreadAlert: FC<{ desc: string }> = ({ desc }) => {
+  return (
+    <Alert>
+      <BadgeInfo className="h-4 w-4" />
+      <AlertDescription>{desc}</AlertDescription>
+    </Alert>
   );
 };
 

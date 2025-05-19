@@ -30,6 +30,7 @@ import {
 import { LangSwitch } from "@/components/lang-switch";
 import { ThreadList } from "@/components/assistant-ui/thread-list";
 import { UserMemory } from "@/components/user-memory";
+import { Thread } from "@/components/assistant-ui/thread";
 
 import { useTranslations } from "next-intl";
 import { useLoginDialog } from "@/stores/use-login-dialog";
@@ -180,7 +181,7 @@ export default function Page() {
               <UserMenu />
             </div>
           </header>
-          <AssistantSidebar>
+          <AssistantSidebar threadSlot={<Thread />}>
             <UserMemory
               isLoading={isLoading}
               events={events}
