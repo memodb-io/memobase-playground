@@ -1,7 +1,7 @@
 import { useState } from "react";
 import classNames from "classnames";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 export function ExpandableText({
   text,

@@ -115,6 +115,7 @@ export default function Page() {
               badge="preview"
               events={events}
               profiles={profiles}
+              profilesFold
             />
           </AssistantSidebar>
         </SidebarInset>

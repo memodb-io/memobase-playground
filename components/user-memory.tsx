@@ -1,8 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 import { useTranslations } from "next-intl";
 
-import { RefreshCw } from "lucide-react";
+import { RefreshCw, ChevronDown, ChevronUp } from "lucide-react";
 
 import { UserProfile, UserEvent } from "@memobase/memobase";
 
@@ -12,6 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TimelineLayout } from "@/components/timeline/timeline-layout";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -21,15 +24,19 @@ export function UserMemory({
   events,
   badge,
   onRefresh,
+  profilesFold,
 }: {
   isLoading: boolean;
   profiles: UserProfile[];
   events: UserEvent[];
   badge?: string;
   onRefresh?: () => void;
+  profilesFold?: boolean;
 }) {
   const t = useTranslations("common");
   const isMobile = useIsMobile();
+
+  const [foldStatus, setFoldStatus] = useState<Record<string, boolean>>({});
 
   const groupedProfiles = profiles.reduce((acc, profile) => {
     if (!acc[profile.topic]) {
@@ -38,6 +45,28 @@ export function UserMemory({
     acc[profile.topic].push(profile);
     return acc;
   }, {} as Record<string, UserProfile[]>);
+
+  const toggleFold = (topic: string) => {
+    setFoldStatus((prev) => ({
+      ...prev,
+      [topic]: !prev[topic],
+    }));
+  };
+
+  useEffect(() => {
+    const grouped = profiles.reduce((acc, profile) => {
+      if (!acc.includes(profile.topic)) {
+        acc.push(profile.topic);
+      }
+      return acc;
+    }, [] as string[]);
+
+    const newStatus: Record<string, boolean> = {};
+    for (const topic of grouped) {
+      newStatus[topic] = !profilesFold;
+    }
+    setFoldStatus(newStatus);
+  }, [profiles, profilesFold]);
 
   return (
     <div className="pt-2 px-2 md:pt-8 md:px-4">
@@ -87,32 +116,49 @@ export function UserMemory({
                   {Object.entries(groupedProfiles).map(([topic, profiles]) => (
                     <Card key={topic}>
                       <CardHeader>
-                        <CardTitle>{topic}</CardTitle>
+                        <CardTitle className="flex justify-between items-center">
+                          {topic}
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => toggleFold(topic)}
+                          >
+                            {foldStatus[topic] ? (
+                              <ChevronUp className="w-4 h-4" />
+                            ) : (
+                              <ChevronDown className="w-4 h-4" />
+                            )}
+                          </Button>
+                        </CardTitle>
                       </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          {profiles.map((profile) => {
-                            const Icon = getTopicIcon(profile.sub_topic);
-                            return (
-                              <div
-                                key={profile.id}
-                                className="border-b pb-4 last:pb-0 last:border-b-0"
-                              >
-                                <div className="font-medium text-sm text-muted-foreground mb-1 flex items-center gap-2">
-                                  <Icon className="w-4 h-4" />
-                                  {profile.sub_topic}
+                      {foldStatus[topic] && (
+                        <CardContent>
+                          <div className="space-y-4">
+                            {profiles.map((profile) => {
+                              const Icon = getTopicIcon(profile.sub_topic);
+                              return (
+                                <div
+                                  key={profile.id}
+                                  className="border-b pb-4 last:pb-0 last:border-b-0"
+                                >
+                                  <div className="font-medium text-sm text-muted-foreground mb-1 flex items-center gap-2">
+                                    <Icon className="w-4 h-4" />
+                                    {profile.sub_topic}
+                                  </div>
+                                  <div className="text-sm">
+                                    {profile.content}
+                                  </div>
+                                  <div className="text-xs text-muted-foreground mt-2">
+                                    {new Date(
+                                      profile.created_at
+                                    ).toLocaleString()}
+                                  </div>
                                 </div>
-                                <div className="text-sm">{profile.content}</div>
-                                <div className="text-xs text-muted-foreground mt-2">
-                                  {new Date(
-                                    profile.created_at
-                                  ).toLocaleString()}
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </CardContent>
+                              );
+                            })}
+                          </div>
+                        </CardContent>
+                      )}
                     </Card>
                   ))}
                 </div>
