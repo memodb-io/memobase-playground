@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import { AssistantRuntimeProvider, AssistantCloud } from "@assistant-ui/react";
 
@@ -65,7 +65,7 @@ export default function Page() {
     }
   };
 
-  const fetchThreads = async () => {
+  const fetchThreads = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await getThreadsExample();
@@ -79,11 +79,11 @@ export default function Page() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [t]);
 
   useEffect(() => {
     fetchThreads();
-  }, []);
+  }, [fetchThreads]);
 
   return (
     <AssistantRuntimeProvider runtime={runtime}>

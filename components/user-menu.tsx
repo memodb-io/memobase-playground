@@ -10,6 +10,7 @@ import {
 import { useTranslations } from "next-intl";
 import { useUserStore } from "@/stores/user";
 import Link from "next/link";
+import Image from "next/image";
 
 export function UserMenu() {
   const t = useTranslations("common");
@@ -41,9 +42,12 @@ export function UserMenu() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full p-0">
           {user.user_metadata?.avatar_url ? (
-            <img
+            <Image
               src={user.user_metadata.avatar_url}
-              alt={user.email}
+              alt={String(user.email)}
+              width={32}
+              height={32}
+              unoptimized
               className="h-8 w-8 rounded-full object-cover border border-gray-200"
             />
           ) : (

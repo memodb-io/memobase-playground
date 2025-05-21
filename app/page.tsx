@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import * as React from "react";
 
 import { AssistantRuntimeProvider, AssistantCloud } from "@assistant-ui/react";
@@ -46,7 +46,7 @@ export default function Page() {
   const lastUserMessageRef = useRef<string>("");
   const hasFetchedRef = useRef(false);
 
-  const fetchProfile = async () => {
+  const fetchProfile = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await getProfile();
@@ -64,9 +64,9 @@ export default function Page() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [t, openDialog]);
 
-  const fetchEvent = async () => {
+  const fetchEvent = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await getEvent();
@@ -84,7 +84,7 @@ export default function Page() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [t, openDialog]);
 
   const cloud = new AssistantCloud({
     baseUrl: `${process.env["NEXT_PUBLIC_BASE_URL"]}${
@@ -163,7 +163,7 @@ export default function Page() {
       }
     };
     checkUser();
-  }, [user]);
+  }, [user, fetchProfile, fetchEvent, openDialog, t]);
 
   return (
     <AssistantRuntimeProvider runtime={runtime}>
