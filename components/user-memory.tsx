@@ -69,7 +69,7 @@ export function UserMemory({
   }, [profiles, profilesFold]);
 
   return (
-    <div className="pt-2 px-2 md:pt-8 md:px-4">
+    <div className="h-full pt-2 px-2 md:pt-4 md:px-4">
       <p className="text-lg font-semibold text-foreground mb-4">
         {t("memory_section_title")}
         {badge && <Badge className="ml-2">{badge}</Badge>}
@@ -107,7 +107,7 @@ export function UserMemory({
                 </div>
               ) : (
                 <div
-                  className={`grid gap-4 overflow-y-auto ${
+                  className={`grid gap-4 overflow-y-auto py-2 ${
                     isMobile
                       ? "max-h-[calc(100dvh-7rem)]"
                       : "max-h-[calc(100dvh-13rem)]"

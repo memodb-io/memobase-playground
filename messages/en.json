@@ -56,7 +56,8 @@
     "emailAlreadyRegistered": "This email is already registered, please login directly",
     "checkEmailForVerification": "Please check your email and complete verification",
     "chatMaxConversations": "This is the maximum number of conversations for today, please wait for tomorrow",
-    "signingUp": "Signing Up..."
+    "signingUp": "Signing Up...",
+    "exampleMessage": "Welcome to Memobase, Please click on the example on the left to view!"
   },
   "error": {
     "title": "Error",

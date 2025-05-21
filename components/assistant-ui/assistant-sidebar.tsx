@@ -62,7 +62,7 @@ export const AssistantSidebar: FC<AssistantSidebarProps> = ({
         {threadSlot}
       </ResizablePanel>
       <ResizableHandle withHandle />
-      <ResizablePanel defaultSize={30} minSize={30}>
+      <ResizablePanel defaultSize={30} minSize={30} className="bg-sidebar">
         {children}
       </ResizablePanel>
     </ResizablePanelGroup>

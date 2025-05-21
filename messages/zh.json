@@ -56,7 +56,8 @@
     "emailAlreadyRegistered": "该邮箱已被注册，请直接登录",
     "checkEmailForVerification": "请检查您的邮箱并完成验证",
     "chatMaxConversations": "今日已达最大对话轮次，请明天再来～",
-    "signingUp": "注册中..."
+    "signingUp": "注册中...",
+    "exampleMessage": "欢迎使用Memobase，请点击左侧示例查看！"
   },
   "error": {
     "title": "出错了",

@@ -39,7 +39,6 @@ export const Thread: FC<{ thread?: ThreadExample; isLoading?: boolean }> = ({
       }}
     >
       {thread && <ThreadAlert thread={thread} />}
-      <Separator className="my-2" />
 
       <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-scroll scroll-smooth bg-inherit px-4 pt-8">
         {isLoading ? (
@@ -109,6 +108,7 @@ const ThreadAlert: FC<{ thread: ThreadExample }> = ({ thread }) => {
           </AlertDescription>
         )}
       </Alert>
+      <Separator className="my-2" />
     </div>
   );
 };
@@ -134,7 +134,7 @@ const ThreadWelcome: FC = () => {
     <ThreadPrimitive.Empty>
       <div className="flex w-full max-w-[var(--thread-max-width)] flex-grow flex-col">
         <div className="flex w-full flex-grow flex-col items-center justify-center">
-          <p className="mt-4 font-medium">{t("welcomeMessage")}</p>
+          <p className="mt-4 font-medium">{t("exampleMessage")}</p>
         </div>
       </div>
     </ThreadPrimitive.Empty>
