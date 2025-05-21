@@ -26,5 +26,12 @@
       "bucket_name": "memobase-playground-inc-cache"
     }
   ],
-  "minify": true
+  "minify": true,
+  "limits": {
+    "cpu_ms": 300000
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
 }
