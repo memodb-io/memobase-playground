@@ -65,6 +65,9 @@
     "backToLogin": "Back to Login"
   },
   "navigation": {
-    "example": "Example"
+    "example": "Example",
+    "github": "Github",
+    "docs": "Docs",
+    "dashboard": "Dashboard"
   }
 }

@@ -8,7 +8,13 @@ import {
 
 import Link from "next/link";
 
-import { LibraryBig, ArrowUpRight } from "lucide-react";
+import {
+  LibraryBig,
+  ArrowUpRight,
+  Github,
+  BookText,
+  LayoutDashboard,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
@@ -17,6 +23,21 @@ export function NavMain() {
   const t = useTranslations("navigation");
 
   const items = [
+    {
+      title: t("github"),
+      url: "https://github.com/memodb-io/memobase",
+      icon: Github,
+    },
+    {
+      title: t("docs"),
+      url: "https://docs.memobase.io/",
+      icon: BookText,
+    },
+    {
+      title: t("dashboard"),
+      url: "https://app.memobase.io/dashboard",
+      icon: LayoutDashboard,
+    },
     {
       title: t("example"),
       url: "/example",

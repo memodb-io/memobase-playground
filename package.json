@@ -18,6 +18,7 @@
     "@assistant-ui/react-ai-sdk": "^0.10.9",
     "@assistant-ui/react-markdown": "^0.10.3",
     "@memobase/memobase": "^0.0.10",
+    "@next/third-parties": "^15.3.2",
     "@opennextjs/cloudflare": "1.0.4",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-dropdown-menu": "^2.1.15",

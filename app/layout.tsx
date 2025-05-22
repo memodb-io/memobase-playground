@@ -9,6 +9,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { LoginDialog } from "@/components/login-dialog";
 import { AuthProvider } from "@/components/auth-provider";
 
+import { GoogleAnalytics } from "@next/third-parties/google";
+
 export const metadata: Metadata = {
   title: "Memobase - Playground",
   description: "Memobase Playground",
@@ -27,6 +29,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ""} />
       <body className="antialiased">
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider

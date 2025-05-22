@@ -65,6 +65,9 @@
     "backToLogin": "返回登录页面"
   },
   "navigation": {
-    "example": "示例"
+    "example": "示例",
+    "github": "Github",
+    "docs": "文档",
+    "dashboard": "仪表盘"
   }
 }
