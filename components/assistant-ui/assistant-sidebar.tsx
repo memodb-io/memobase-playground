@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -6,6 +5,7 @@ import {
 } from "@/components/ui/resizable";
 import {
   Sheet,
+  SheetTrigger,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -25,13 +25,21 @@ export const AssistantSidebar: FC<AssistantSidebarProps> = ({
   threadSlot,
 }) => {
   const isMobile = useIsMobile();
-  const [open, setOpen] = React.useState(false);
 
   if (isMobile) {
     return (
       <>
         <div className="h-[calc(100dvh-4rem)]">{threadSlot}</div>
-        <Sheet open={open} onOpenChange={setOpen}>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant="outline"
+              size="icon"
+              className="fixed top-20 right-4 z-50 rounded-full shadow-lg"
+            >
+              <Brain className="h-4 w-4" />
+            </Button>
+          </SheetTrigger>
           <SheetHeader className="hidden">
             <SheetTitle>Assistant</SheetTitle>
             <SheetDescription>Assistant</SheetDescription>
@@ -41,14 +49,6 @@ export const AssistantSidebar: FC<AssistantSidebarProps> = ({
             {children}
           </SheetContent>
         </Sheet>
-        <Button
-          variant="outline"
-          size="icon"
-          className="fixed top-20 right-4 z-50 rounded-full shadow-lg"
-          onClick={() => setOpen(true)}
-        >
-          <Brain className="h-4 w-4" />
-        </Button>
       </>
     );
   }
