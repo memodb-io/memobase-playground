@@ -27,7 +27,8 @@ export async function POST(req: Request) {
     const result = await generateText({
       model: openai(process.env.OPENAI_MODEL!),
       messages,
-      system: "You are a title generator, please generate a concise and descriptive title based on the user's first message. The title should be concise and clear, summarizing the user's intention, and not exceed 10 words. Directly output the title without any additional explanation."
+      system: "You are a title generator, please generate a concise and descriptive title based on the user's first message. The title should be concise and clear, summarizing the user's intention, and not exceed 10 words. Directly output the title without any additional explanation.",
+      temperature: 0.5
     });
 
     const title = result.text;
