@@ -1,4 +1,8 @@
+import { openai } from "@/lib/openai";
+import { generateText } from "ai";
 import { createClient } from "@/utils/supabase/server";
+
+export const maxDuration = 30;
 
 /**
  * 根据第一轮对话的messages和thread_id，生成一个title，并更新thread_id的title
@@ -19,9 +23,28 @@ export async function POST(req: Request) {
     return new Response("Bad Request", { status: 400 });
   }
 
-  // TODO: 根据messages和thread_id，生成一个title，并更新thread_id的title
+  try {
+    const result = await generateText({
+      model: openai(process.env.OPENAI_MODEL!),
+      messages,
+      system: "You are a title generator, please generate a concise and descriptive title based on the user's first message. The title should be concise and clear, summarizing the user's intention, and not exceed 10 words. Directly output the title without any additional explanation."
+    });
 
-  return new Response(null, {
-    status: 200,
-  });
+    const title = result.text;
+
+    const res = await supabase
+      .rpc('update_thread_title', {
+        t: title,
+        thread_id,
+        uid: data.user.id
+      })
+    if (res.error) {
+      return new Response("Internal Server Error", { status: 500 });
+    }
+
+    return new Response(title, { status: 200 });
+  } catch (err) {
+    console.error("Error generating title:", err);
+    return new Response("Internal Server Error", { status: 500 });
+  }
 }

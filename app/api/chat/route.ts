@@ -1,13 +1,8 @@
-import { createOpenAI } from "@ai-sdk/openai";
+import { openai } from "@/lib/openai";
 import { jsonSchema, streamText } from "ai";
 
 import { createClient } from "@/utils/supabase/server";
 import { memoBaseClient } from "@/utils/memobase/client";
-
-const openai = createOpenAI({
-  baseURL: process.env.OPENAI_BASE_URL!,
-  apiKey: process.env.OPENAI_API_KEY!,
-});
 
 export const maxDuration = 30;
 
