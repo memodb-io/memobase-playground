@@ -23,10 +23,15 @@ export async function POST(req: Request) {
     return new Response("Bad Request", { status: 400 });
   }
 
+  if (!messages.length) {
+    return new Response("Bad Request", { status: 400 });
+  }
+
+  messages[0].content[0].text = `Give the following user input a title:\n user: ${messages[0].content[0].text}`;
   try {
     const result = await generateText({
       model: openai(process.env.OPENAI_MODEL!),
-      messages,
+      messages: [messages[0]],
       system: "You are a title generator, please generate a concise and descriptive title based on the user's first message. The title should be concise and clear, summarizing the user's intention, and not exceed 10 words. Directly output the title without any additional explanation.",
       temperature: 0.5
     });

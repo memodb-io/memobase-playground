@@ -51,7 +51,7 @@ const ThreadListItem: FC = () => {
 const ThreadListItemTitle: FC = () => {
   const t = useTranslations("common");
   return (
-    <p className="text-sm">
+    <p className="text-sm line-clamp-1 overflow-hidden break-words">
       <ThreadListItemPrimitive.Title fallback={t("thread.newChat")} />
     </p>
   );
