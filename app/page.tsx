@@ -190,6 +190,9 @@ export default function Page() {
                 fetchProfile();
                 fetchEvent();
               }}
+              canAdd
+              canEdit
+              canDelete
             />
           </AssistantSidebar>
         </SidebarInset>

@@ -22,3 +22,31 @@ export async function GET() {
     return createApiError(errorMessage, 500);
   }
 }
+
+/**
+ * 添加 profile
+ * @param body profile data
+ */
+export async function POST(req: Request) {
+  // get user from supabase
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) {
+    return createApiError("未授权", 401);
+  }
+
+  const { content, topic, sub_topic } = await req.json();
+  if (!content || !topic || !sub_topic) {
+    return createApiError("Bad Request", 400);
+  }
+
+  try {
+    const user = await memoBaseClient.getOrCreateUser(data.user.id);
+    await user.addProfile(content, topic, sub_topic)
+  } catch (error: unknown) {
+    console.error(error);
+    return createApiError("失败", 500);
+  }
+
+  return createApiResponse(null, "成功");
+}

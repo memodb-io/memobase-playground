@@ -57,7 +57,15 @@
     "checkEmailForVerification": "请检查您的邮箱并完成验证",
     "chatMaxConversations": "今日已达最大对话轮次，请明天再来～",
     "signingUp": "注册中...",
-    "exampleMessage": "欢迎使用Memobase，请点击左侧示例查看！"
+    "exampleMessage": "欢迎使用Memobase，请点击左侧示例查看！",
+    "delete": "删除",
+    "delete_profile_title": "确认操作吗？",
+    "delete_profile_description": "此操作无法撤消。这将永久删除您的帐户并从我们的服务器中删除您的数据。",
+    "submit": "提交",
+    "content": "内容",
+    "sub_topic": "子主题",
+    "topic": "主题",
+    "error_empty_fields": "表单内容不能为空"
   },
   "error": {
     "title": "出错了",

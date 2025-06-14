@@ -57,7 +57,15 @@
     "checkEmailForVerification": "Please check your email and complete verification",
     "chatMaxConversations": "This is the maximum number of conversations for today, please wait for tomorrow",
     "signingUp": "Signing Up...",
-    "exampleMessage": "Welcome to Memobase, Please click on the example on the left to view!"
+    "exampleMessage": "Welcome to Memobase, Please click on the example on the left to view!",
+    "delete_profile_title": "Are you absolutely sure?",
+    "delete_profile_description": "This action cannot be undone. This will permanently delete your account and remove your data from our servers.",
+    "delete": "Delete",
+    "submit": "Submit",
+    "content": "Content",
+    "sub_topic": "Sub Topic",
+    "topic": "Topic",
+    "error_empty_fields": "The form content cannot be empty"
   },
   "error": {
     "title": "Error",

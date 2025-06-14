@@ -2,9 +2,12 @@
 
 import { useState, useEffect } from "react";
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { useTranslations } from "next-intl";
 
-import { RefreshCw, ChevronDown, ChevronUp } from "lucide-react";
+import { RefreshCw, ChevronDown, ChevronUp, Pencil, Trash } from "lucide-react";
 
 import { UserProfile, UserEvent } from "@memobase/memobase";
 
@@ -15,8 +18,37 @@ import { TimelineLayout } from "@/components/timeline/timeline-layout";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 import { useIsMobile } from "@/hooks/use-mobile";
+
+import {
+  addProfile,
+  deleteProfile,
+  updateProfile,
+} from "@/api/models/memobase";
+
+import { toast } from "sonner";
 
 export function UserMemory({
   isLoading,
@@ -25,6 +57,9 @@ export function UserMemory({
   badge,
   onRefresh,
   profilesFold,
+  canAdd,
+  canEdit,
+  canDelete,
 }: {
   isLoading: boolean;
   profiles: UserProfile[];
@@ -32,11 +67,18 @@ export function UserMemory({
   badge?: string;
   onRefresh?: () => void;
   profilesFold?: boolean;
+  canAdd?: boolean;
+  canEdit?: boolean;
+  canDelete?: boolean;
 }) {
   const t = useTranslations("common");
   const isMobile = useIsMobile();
 
   const [foldStatus, setFoldStatus] = useState<Record<string, boolean>>({});
+
+  const form = useForm<UserProfile>({
+    resolver: zodResolver(UserProfile),
+  });
 
   const groupedProfiles = profiles.reduce((acc, profile) => {
     if (!acc[profile.topic]) {
@@ -101,6 +143,97 @@ export function UserMemory({
             </div>
           ) : (
             <>
+              {canAdd && (
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      variant="outline"
+                      onClick={() =>
+                        form.reset({
+                          topic: "",
+                          sub_topic: "",
+                          content: "",
+                        })
+                      }
+                      className="w-full"
+                      size="sm"
+                    >
+                      +
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle></AlertDialogTitle>
+                      <AlertDialogDescription></AlertDialogDescription>
+                    </AlertDialogHeader>
+
+                    <Form {...form}>
+                      <form className="space-y-4">
+                        <FormField
+                          control={form.control}
+                          name="topic"
+                          render={({ field }) => (
+                            <div>
+                              <FormLabel>{t("topic")}</FormLabel>
+                              <FormControl>
+                                <Input {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </div>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="sub_topic"
+                          render={({ field }) => (
+                            <div>
+                              <FormLabel>{t("sub_topic")}</FormLabel>
+                              <FormControl>
+                                <Input {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </div>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="content"
+                          render={({ field }) => (
+                            <div>
+                              <FormLabel>{t("content")}</FormLabel>
+                              <FormControl>
+                                <Textarea {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </div>
+                          )}
+                        />
+                      </form>
+                    </Form>
+
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={async () => {
+                          const { content, topic, sub_topic } =
+                            form.getValues();
+                          if (!content || !topic || !sub_topic) {
+                            toast.error(t("error_empty_fields"));
+                            return;
+                          }
+                          await addProfile(content, topic, sub_topic).then(
+                            () => {
+                              onRefresh?.();
+                            }
+                          );
+                        }}
+                      >
+                        {t("submit")}
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              )}
               {profiles.length === 0 ? (
                 <div className="p-8 text-center text-sm text-muted-foreground">
                   {t("noContent")}
@@ -139,11 +272,163 @@ export function UserMemory({
                               return (
                                 <div
                                   key={profile.id}
-                                  className="border-b pb-4 last:pb-0 last:border-b-0"
+                                  className="border-b pb-4 last:pb-0 last:border-b-0 group/profile"
                                 >
                                   <div className="font-medium text-sm text-muted-foreground mb-1 flex items-center gap-2">
                                     <Icon className="w-4 h-4" />
                                     {profile.sub_topic}
+                                    <div className="ml-auto">
+                                      {canEdit && (
+                                        <AlertDialog>
+                                          <AlertDialogTrigger asChild>
+                                            <Button
+                                              variant="ghost"
+                                              size="sm"
+                                              className="group-hover/profile:opacity-100 opacity-0 transition-opacity duration-200"
+                                              onClick={() => {
+                                                form.reset(profile);
+                                              }}
+                                            >
+                                              <Pencil className="w-4 h-4" />
+                                            </Button>
+                                          </AlertDialogTrigger>
+                                          <AlertDialogContent>
+                                            <AlertDialogHeader>
+                                              <AlertDialogTitle></AlertDialogTitle>
+                                              <AlertDialogDescription></AlertDialogDescription>
+                                            </AlertDialogHeader>
+
+                                            <Form {...form}>
+                                              <form className="space-y-4">
+                                                <FormField
+                                                  control={form.control}
+                                                  name="topic"
+                                                  render={({ field }) => (
+                                                    <div>
+                                                      <FormLabel>
+                                                        {t("topic")}
+                                                      </FormLabel>
+                                                      <FormControl>
+                                                        <Input {...field} />
+                                                      </FormControl>
+                                                      <FormMessage />
+                                                    </div>
+                                                  )}
+                                                />
+                                                <FormField
+                                                  control={form.control}
+                                                  name="sub_topic"
+                                                  render={({ field }) => (
+                                                    <div>
+                                                      <FormLabel>
+                                                        {t("sub_topic")}
+                                                      </FormLabel>
+                                                      <FormControl>
+                                                        <Input {...field} />
+                                                      </FormControl>
+                                                      <FormMessage />
+                                                    </div>
+                                                  )}
+                                                />
+                                                <FormField
+                                                  control={form.control}
+                                                  name="content"
+                                                  render={({ field }) => (
+                                                    <div>
+                                                      <FormLabel>
+                                                        {t("content")}
+                                                      </FormLabel>
+                                                      <FormControl>
+                                                        <Textarea {...field} />
+                                                      </FormControl>
+                                                      <FormMessage />
+                                                    </div>
+                                                  )}
+                                                />
+                                              </form>
+                                            </Form>
+
+                                            <AlertDialogFooter>
+                                              <AlertDialogCancel>
+                                                {t("cancel")}
+                                              </AlertDialogCancel>
+                                              <AlertDialogAction
+                                                onClick={async () => {
+                                                  const {
+                                                    id,
+                                                    content,
+                                                    topic,
+                                                    sub_topic,
+                                                  } = form.getValues();
+                                                  if (
+                                                    !id ||
+                                                    !content ||
+                                                    !topic ||
+                                                    !sub_topic
+                                                  ) {
+                                                    toast.error(
+                                                      t("error_empty_fields")
+                                                    );
+                                                    return;
+                                                  }
+                                                  await updateProfile(
+                                                    id,
+                                                    content,
+                                                    topic,
+                                                    sub_topic
+                                                  ).then(() => {
+                                                    onRefresh?.();
+                                                  });
+                                                }}
+                                              >
+                                                {t("submit")}
+                                              </AlertDialogAction>
+                                            </AlertDialogFooter>
+                                          </AlertDialogContent>
+                                        </AlertDialog>
+                                      )}
+                                      {canDelete && (
+                                        <AlertDialog>
+                                          <AlertDialogTrigger asChild>
+                                            <Button
+                                              variant="ghost"
+                                              size="sm"
+                                              className="group-hover/profile:opacity-100 opacity-0 transition-opacity duration-200"
+                                            >
+                                              <Trash className="w-4 h-4 text-red-500" />
+                                            </Button>
+                                          </AlertDialogTrigger>
+                                          <AlertDialogContent>
+                                            <AlertDialogHeader>
+                                              <AlertDialogTitle>
+                                                {t("delete_profile_title")}
+                                              </AlertDialogTitle>
+                                              <AlertDialogDescription>
+                                                {t(
+                                                  "delete_profile_description"
+                                                )}
+                                              </AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                              <AlertDialogCancel>
+                                                {t("cancel")}
+                                              </AlertDialogCancel>
+                                              <AlertDialogAction
+                                                onClick={async () => {
+                                                  await deleteProfile(
+                                                    profile.id
+                                                  ).then(() => {
+                                                    onRefresh?.();
+                                                  });
+                                                }}
+                                              >
+                                                {t("delete")}
+                                              </AlertDialogAction>
+                                            </AlertDialogFooter>
+                                          </AlertDialogContent>
+                                        </AlertDialog>
+                                      )}
+                                    </div>
                                   </div>
                                   <div className="text-sm">
                                     {profile.content}
