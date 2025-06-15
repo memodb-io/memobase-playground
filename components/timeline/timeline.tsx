@@ -53,7 +53,7 @@ const Timeline = React.forwardRef<HTMLOListElement, TimelineProps>(
         aria-label="Timeline"
         className={cn(
           timelineVariants({ size }),
-          "relative min-h-[600px] w-full max-w-2xl mx-auto py-8",
+          "relative w-full max-w-2xl mx-auto",
           className
         )}
         {...props}
@@ -218,7 +218,7 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
 
     const content = (
       <div
-        className="grid grid-cols-[80px_auto] gap-4 items-start"
+        className="grid grid-cols-[60px_auto] items-start"
         {...(status === "in-progress" ? { "aria-current": "step" } : {})}
       >
         {/* Timeline dot and connector */}

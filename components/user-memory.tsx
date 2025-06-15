@@ -31,6 +31,13 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { ExpandableText } from "@/components/expandable-text";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 import {
   Form,
@@ -453,35 +460,83 @@ export function UserMemory({
         </TabsContent>
         <TabsContent value="events">
           <div
-            className={`overflow-y-auto ${
+            className={`overflow-y-auto space-y-4 ${
               isMobile
                 ? "max-h-[calc(100dvh-7rem)]"
                 : "max-h-[calc(100dvh-13rem)]"
             }`}
           >
-            <TimelineLayout
-              items={events.flatMap((event) => {
-                const deltas = event.event_data?.profile_delta || [];
-                return deltas.map((delta) => {
-                  const topic = delta.attributes?.topic || "default";
-                  const subTopic = delta.attributes?.sub_topic || "default";
-                  const Icon = getTopicIcon(subTopic);
+            {events.map((event) => (
+              <Card key={event.id}>
+                <CardHeader>
+                  <CardTitle className="flex justify-between items-center">
+                    {new Date(event.created_at).toLocaleString()}
+                    {event.event_data?.profile_delta && (
+                      <HoverCard>
+                        <HoverCardTrigger asChild className="cursor-pointer">
+                          <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale">
+                            {event.event_data?.profile_delta?.map(
+                              (delta, index) => {
+                                const subTopic =
+                                  delta.attributes?.sub_topic || "default";
+                                const Icon = getTopicIcon(subTopic);
+                                return (
+                                  <Avatar key={index}>
+                                    <AvatarFallback>
+                                      <Icon className="w-4 h-4" />
+                                    </AvatarFallback>
+                                  </Avatar>
+                                );
+                              }
+                            )}
+                          </div>
+                        </HoverCardTrigger>
+                        <HoverCardContent
+                          side="left"
+                          className="min-w-80 w-auto max-h-[50vh] overflow-y-auto"
+                        >
+                          {event.event_data?.profile_delta && (
+                            <TimelineLayout
+                              items={event.event_data?.profile_delta.map(
+                                (delta) => {
+                                  const topic =
+                                    delta.attributes?.topic || "default";
+                                  const subTopic =
+                                    delta.attributes?.sub_topic || "default";
+                                  const Icon = getTopicIcon(subTopic);
 
-                  return {
-                    id: parseInt(event.id),
-                    date: new Date(event.created_at).toLocaleString(),
-                    title: `${topic} - ${subTopic}`,
-                    description: delta.content || t("noContent"),
-                    color: "primary",
-                    icon: <Icon className="w-4 h-4" />,
-                  };
-                });
-              })}
-              size="sm"
-              animate={true}
-              loading={isLoading}
-              emptyText={t("noContent")}
-            />
+                                  return {
+                                    id: parseInt(event.id),
+                                    date: new Date(
+                                      event.created_at
+                                    ).toLocaleString(),
+                                    title: `${topic} - ${subTopic}`,
+                                    description:
+                                      delta.content || t("noContent"),
+                                    color: "primary",
+                                    icon: <Icon className="w-4 h-4" />,
+                                  };
+                                }
+                              )}
+                              size="sm"
+                              animate={true}
+                              loading={isLoading}
+                              emptyText={t("noContent")}
+                            />
+                          )}
+                        </HoverCardContent>
+                      </HoverCard>
+                    )}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm">
+                  <ExpandableText
+                    text={event.event_data?.event_tip || ""}
+                    maxLines={4}
+                  />
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </TabsContent>
       </Tabs>
