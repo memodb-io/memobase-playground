@@ -169,7 +169,7 @@ export function UserMemory({
                     </Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
-                    <AlertDialogHeader>
+                    <AlertDialogHeader className="hidden">
                       <AlertDialogTitle></AlertDialogTitle>
                       <AlertDialogDescription></AlertDialogDescription>
                     </AlertDialogHeader>
@@ -300,7 +300,7 @@ export function UserMemory({
                                             </Button>
                                           </AlertDialogTrigger>
                                           <AlertDialogContent>
-                                            <AlertDialogHeader>
+                                            <AlertDialogHeader className="hidden">
                                               <AlertDialogTitle></AlertDialogTitle>
                                               <AlertDialogDescription></AlertDialogDescription>
                                             </AlertDialogHeader>

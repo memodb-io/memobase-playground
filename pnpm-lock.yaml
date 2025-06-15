@@ -24,8 +24,8 @@ importers:
         specifier: ^5.1.1
         version: 5.1.1(react-hook-form@7.57.0(react@19.1.0))
       '@memobase/memobase':
-        specifier: ^0.0.13
-        version: 0.0.13
+        specifier: ^0.0.14
+        version: 0.0.14
       '@next/third-parties':
         specifier: ^15.3.3
         version: 15.3.3(next@15.3.3(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
@@ -1158,8 +1158,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@memobase/memobase@0.0.13':
-    resolution: {integrity: sha512-GAk8bfs/nRNv+r4sLLFfZHMNHS5Ff4hnMGqr2ngFqePqDjcrWULfCjGqpF94WkyrKjceIoJvuyUq4Ubv8/3FxQ==}
+  '@memobase/memobase@0.0.14':
+    resolution: {integrity: sha512-6O3Z0eskFCG0RwmQA70cWr+FI4h35heqLw7GPwxVGJbCTOLHfY05ds744+dsyG/edKdkIl/Dv64PMd5qT9oqtA==}
 
   '@napi-rs/wasm-runtime@0.2.9':
     resolution: {integrity: sha512-OKRBiajrrxB9ATokgEQoG87Z25c67pCpYcCwmXYX8PBftC9pBfN18gnm/fh1wurSLEKIAt+QRFLFCQISrb66Jg==}
@@ -6301,7 +6301,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@memobase/memobase@0.0.13':
+  '@memobase/memobase@0.0.14':
     dependencies:
       zod: 3.25.64
 
