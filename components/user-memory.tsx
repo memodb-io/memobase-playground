@@ -529,11 +529,24 @@ export function UserMemory({
                     )}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="text-sm">
-                  <ExpandableText
-                    text={event.event_data?.event_tip || ""}
-                    maxLines={4}
-                  />
+                <CardContent className="text-sm flex flex-col gap-2">
+                  {event.event_data?.event_tip && (
+                    <ExpandableText
+                      text={event.event_data?.event_tip || ""}
+                      maxLines={4}
+                    />
+                  )}
+                  {event.event_data?.event_tags && (
+                    <div className="flex flex-wrap gap-2">
+                      {event.event_data.event_tags.map((tag, index) => (
+                        <Badge key={index} variant="outline">
+                          {tag.tag}
+                          <span className="mx-0.5">|</span>
+                          {tag.value}
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             ))}
