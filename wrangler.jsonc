@@ -30,5 +30,10 @@
   "observability": {
     "enabled": true,
     "head_sampling_rate": 1
-  }
+  },
+  "tail_consumers": [
+    {
+      "service": "tail-worker"
+    }
+  ]
 }
