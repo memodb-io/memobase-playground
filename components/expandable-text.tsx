@@ -24,7 +24,7 @@ export function ExpandableText({
     : {};
 
   return (
-    <div className="flex">
+    <div className="flex justify-between">
       <p
         className={classNames(
           "overflow-hidden",

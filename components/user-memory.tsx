@@ -47,8 +47,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { useIsMobile } from "@/hooks/use-mobile";
-
 import {
   addProfile,
   deleteProfile,
@@ -79,7 +77,6 @@ export function UserMemory({
   canDelete?: boolean;
 }) {
   const t = useTranslations("common");
-  const isMobile = useIsMobile();
 
   const [foldStatus, setFoldStatus] = useState<Record<string, boolean>>({});
 
@@ -118,12 +115,12 @@ export function UserMemory({
   }, [profiles, profilesFold]);
 
   return (
-    <div className="h-full pt-2 px-2 md:pt-4 md:px-4">
-      <p className="text-lg font-semibold text-foreground mb-4">
+    <div className="flex flex-col gap-4 h-full py-2 px-2 md:py-4 md:px-4 overflow-hidden">
+      <p className="text-lg font-semibold text-foreground">
         {t("memory_section_title")}
         {badge && <Badge className="ml-2">{badge}</Badge>}
       </p>
-      <Tabs defaultValue="profiles" className="w-full">
+      <Tabs defaultValue="profiles" className="flex flex-1 overflow-hidden">
         <div className="flex items-center justify-between">
           <TabsList>
             <TabsTrigger value="profiles">{t("memories")}</TabsTrigger>
@@ -141,7 +138,10 @@ export function UserMemory({
             </button>
           )}
         </div>
-        <TabsContent value="profiles">
+        <TabsContent
+          value="profiles"
+          className="flex flex-col overflow-y-auto space-y-4"
+        >
           {isLoading ? (
             <div className="flex flex-col space-y-3">
               <Skeleton className="h-[200px] w-full rounded-xl" />
@@ -162,7 +162,7 @@ export function UserMemory({
                           content: "",
                         })
                       }
-                      className="w-full"
+                      className="w-full mb-0"
                       size="sm"
                     >
                       +
@@ -246,13 +246,7 @@ export function UserMemory({
                   {t("noContent")}
                 </div>
               ) : (
-                <div
-                  className={`grid gap-4 overflow-y-auto py-2 ${
-                    isMobile
-                      ? "max-h-[calc(100dvh-7rem)]"
-                      : "max-h-[calc(100dvh-13rem)]"
-                  }`}
-                >
+                <div className="grid gap-4 overflow-y-auto py-2">
                   {Object.entries(groupedProfiles).map(([topic, profiles]) => (
                     <Card key={topic}>
                       <CardHeader>
@@ -458,99 +452,93 @@ export function UserMemory({
             </>
           )}
         </TabsContent>
-        <TabsContent value="events">
-          <div
-            className={`overflow-y-auto space-y-4 ${
-              isMobile
-                ? "max-h-[calc(100dvh-7rem)]"
-                : "max-h-[calc(100dvh-13rem)]"
-            }`}
-          >
-            {events.map((event) => (
-              <Card key={event.id}>
-                <CardHeader>
-                  <CardTitle className="flex justify-between items-center">
-                    {new Date(event.created_at).toLocaleString()}
-                    {event.event_data?.profile_delta && (
-                      <HoverCard>
-                        <HoverCardTrigger asChild className="cursor-pointer">
-                          <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale">
-                            {event.event_data?.profile_delta?.map(
-                              (delta, index) => {
+        <TabsContent
+          value="events"
+          className="flex flex-col overflow-y-auto space-y-4"
+        >
+          {events.map((event) => (
+            <Card key={event.id}>
+              <CardHeader>
+                <CardTitle className="flex justify-between items-center">
+                  {new Date(event.created_at).toLocaleString()}
+                  {event.event_data?.profile_delta && (
+                    <HoverCard>
+                      <HoverCardTrigger asChild className="cursor-pointer">
+                        <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale">
+                          {event.event_data?.profile_delta?.map(
+                            (delta, index) => {
+                              const subTopic =
+                                delta.attributes?.sub_topic || "default";
+                              const Icon = getTopicIcon(subTopic);
+                              return (
+                                <Avatar key={index}>
+                                  <AvatarFallback>
+                                    <Icon className="w-4 h-4" />
+                                  </AvatarFallback>
+                                </Avatar>
+                              );
+                            }
+                          )}
+                        </div>
+                      </HoverCardTrigger>
+                      <HoverCardContent
+                        side="left"
+                        className="min-w-80 w-auto max-h-[50dvh] h-auto overflow-y-auto"
+                      >
+                        {event.event_data?.profile_delta && (
+                          <TimelineLayout
+                            items={event.event_data?.profile_delta.map(
+                              (delta) => {
+                                const topic =
+                                  delta.attributes?.topic || "default";
                                 const subTopic =
                                   delta.attributes?.sub_topic || "default";
                                 const Icon = getTopicIcon(subTopic);
-                                return (
-                                  <Avatar key={index}>
-                                    <AvatarFallback>
-                                      <Icon className="w-4 h-4" />
-                                    </AvatarFallback>
-                                  </Avatar>
-                                );
+
+                                return {
+                                  id: parseInt(event.id),
+                                  date: new Date(
+                                    event.created_at
+                                  ).toLocaleString(),
+                                  title: `${topic} - ${subTopic}`,
+                                  description: delta.content || t("noContent"),
+                                  color: "primary",
+                                  icon: <Icon className="w-4 h-4" />,
+                                };
                               }
                             )}
-                          </div>
-                        </HoverCardTrigger>
-                        <HoverCardContent
-                          side="left"
-                          className="min-w-80 w-auto max-h-[50vh] overflow-y-auto"
-                        >
-                          {event.event_data?.profile_delta && (
-                            <TimelineLayout
-                              items={event.event_data?.profile_delta.map(
-                                (delta) => {
-                                  const topic =
-                                    delta.attributes?.topic || "default";
-                                  const subTopic =
-                                    delta.attributes?.sub_topic || "default";
-                                  const Icon = getTopicIcon(subTopic);
-
-                                  return {
-                                    id: parseInt(event.id),
-                                    date: new Date(
-                                      event.created_at
-                                    ).toLocaleString(),
-                                    title: `${topic} - ${subTopic}`,
-                                    description:
-                                      delta.content || t("noContent"),
-                                    color: "primary",
-                                    icon: <Icon className="w-4 h-4" />,
-                                  };
-                                }
-                              )}
-                              size="sm"
-                              animate={true}
-                              loading={isLoading}
-                              emptyText={t("noContent")}
-                            />
-                          )}
-                        </HoverCardContent>
-                      </HoverCard>
-                    )}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm flex flex-col gap-2">
-                  {event.event_data?.event_tip && (
-                    <ExpandableText
-                      text={event.event_data?.event_tip || ""}
-                      maxLines={4}
-                    />
+                            size="sm"
+                            animate={true}
+                            loading={isLoading}
+                            emptyText={t("noContent")}
+                          />
+                        )}
+                      </HoverCardContent>
+                    </HoverCard>
                   )}
-                  {event.event_data?.event_tags && (
-                    <div className="flex flex-wrap gap-2">
-                      {event.event_data.event_tags.map((tag, index) => (
-                        <Badge key={index} variant="outline">
-                          {tag.tag}
-                          <span className="mx-0.5">|</span>
-                          {tag.value}
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm flex flex-col gap-2">
+                {event.event_data?.event_tip && (
+                  <ExpandableText
+                    text={event.event_data?.event_tip || ""}
+                    maxLines={4}
+                  />
+                )}
+                {event.event_data?.event_tags && (
+                  <div className="flex flex-wrap gap-2">
+                    {event.event_data.event_tags.map((tag, index) => (
+                      <Badge key={index} variant="outline">
+                        {tag.tag}
+                        <span className="mx-0.5">|</span>
+                        {tag.value}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          ))}
         </TabsContent>
       </Tabs>
     </div>
