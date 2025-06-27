@@ -30,41 +30,49 @@ export const AssistantSidebar: FC<AssistantSidebarProps> = ({
     return (
       <>
         <div className="h-[calc(100dvh-4rem)]">{threadSlot}</div>
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="fixed top-20 right-4 z-50 rounded-full shadow-lg"
-            >
-              <Brain className="h-4 w-4" />
-            </Button>
-          </SheetTrigger>
-          <SheetHeader className="hidden">
-            <SheetTitle>Assistant</SheetTitle>
-            <SheetDescription>Assistant</SheetDescription>
-          </SheetHeader>
+        {children && (
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="fixed top-20 right-4 z-50 rounded-full shadow-lg"
+              >
+                <Brain className="h-4 w-4" />
+              </Button>
+            </SheetTrigger>
+            <SheetHeader className="hidden">
+              <SheetTitle>Assistant</SheetTitle>
+              <SheetDescription>Assistant</SheetDescription>
+            </SheetHeader>
 
-          <SheetContent side="right" className="p-0">
-            {children}
-          </SheetContent>
-        </Sheet>
+            <SheetContent side="right" className="p-0">
+              {children}
+            </SheetContent>
+          </Sheet>
+        )}
       </>
     );
   }
 
   return (
-    <ResizablePanelGroup
-      direction="horizontal"
-      className="!h-[calc(100dvh-4rem)]"
-    >
-      <ResizablePanel defaultSize={70} minSize={30}>
-        {threadSlot}
-      </ResizablePanel>
-      <ResizableHandle withHandle />
-      <ResizablePanel defaultSize={30} minSize={30} className="bg-sidebar">
-        {children}
-      </ResizablePanel>
-    </ResizablePanelGroup>
+    <>
+      {children ? (
+        <ResizablePanelGroup
+          direction="horizontal"
+          className="!h-[calc(100dvh-4rem)]"
+        >
+          <ResizablePanel defaultSize={70} minSize={30}>
+            {threadSlot}
+          </ResizablePanel>
+          <ResizableHandle withHandle />
+          <ResizablePanel defaultSize={30} minSize={30} className="bg-sidebar">
+            {children}
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      ) : (
+        <div className="h-[calc(100dvh-4rem)]">{threadSlot}</div>
+      )}
+    </>
   );
 };

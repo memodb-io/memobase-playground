@@ -7,14 +7,11 @@ import { AssistantRuntimeProvider, AssistantCloud } from "@assistant-ui/react";
 
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import { AssistantSidebar } from "@/components/assistant-ui/assistant-sidebar";
-import { UserMenu } from "@/components/user-menu";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
   SidebarInset,
   SidebarProvider,
-  SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 import { UserProfile, UserEvent } from "@memobase/memobase";
 
@@ -27,15 +24,14 @@ import {
   getEvent,
 } from "@/api/models/memobase";
 
-import { LangSwitch } from "@/components/lang-switch";
 import { ThreadList } from "@/components/assistant-ui/thread-list";
 import { UserMemory } from "@/components/user-memory";
 import { Thread } from "@/components/assistant-ui/thread";
-import { Feedback } from "@/components/feedback";
 
 import { useTranslations } from "next-intl";
 import { useLoginDialog } from "@/stores/use-login-dialog";
 import { useUserStore } from "@/stores/user";
+import CommonHeader from "@/components/common-header";
 
 export default function Page() {
   const t = useTranslations("common");
@@ -173,16 +169,7 @@ export default function Page() {
           <ThreadList />
         </AppSidebar>
         <SidebarInset>
-          <header className="flex h-16 shrink-0 items-center gap-2 border-b">
-            <div className="flex-1 flex items-center gap-2 px-3">
-              <SidebarTrigger />
-              <div className="flex-1" />
-              <Feedback />
-              <ThemeToggle />
-              <LangSwitch />
-              <UserMenu />
-            </div>
-          </header>
+          <CommonHeader />
           <AssistantSidebar threadSlot={<Thread />}>
             <UserMemory
               isLoading={isLoading}

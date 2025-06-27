@@ -65,7 +65,9 @@
     "content": "Content",
     "sub_topic": "Sub Topic",
     "topic": "Topic",
-    "error_empty_fields": "The form content cannot be empty"
+    "error_empty_fields": "The form content cannot be empty",
+    "new": "New Chat Session",
+    "configToolMessage": "Welcome to the config generation tool. Please describe the application you want to create!"
   },
   "error": {
     "title": "Error",
@@ -76,7 +78,8 @@
     "example": "Example",
     "github": "Github",
     "docs": "Docs",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "configTool": "Config Tool"
   },
   "feedback": {
     "feedbackBtn": "Feedback",

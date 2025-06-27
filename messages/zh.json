@@ -65,7 +65,9 @@
     "content": "内容",
     "sub_topic": "子主题",
     "topic": "主题",
-    "error_empty_fields": "表单内容不能为空"
+    "error_empty_fields": "表单内容不能为空",
+    "new": "新对话",
+    "configToolMessage": "欢迎使用配置生成工具，请描述你要创建的应用！"
   },
   "error": {
     "title": "出错了",
@@ -76,7 +78,8 @@
     "example": "示例",
     "github": "Github",
     "docs": "文档",
-    "dashboard": "仪表盘"
+    "dashboard": "仪表盘",
+    "configTool": "配置工具"
   },
   "feedback": {
     "feedbackBtn": "反馈",

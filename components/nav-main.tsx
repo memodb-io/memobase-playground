@@ -14,6 +14,7 @@ import {
   Github,
   BookText,
   LayoutDashboard,
+  PenTool,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -42,6 +43,11 @@ export function NavMain() {
       title: t("example"),
       url: "/example",
       icon: LibraryBig,
+    },
+    {
+      title: t("configTool"),
+      url: "/config-tool",
+      icon: PenTool,
     },
   ];
 
