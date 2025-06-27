@@ -31,6 +31,7 @@ import { LangSwitch } from "@/components/lang-switch";
 import { ThreadList } from "@/components/assistant-ui/thread-list";
 import { UserMemory } from "@/components/user-memory";
 import { Thread } from "@/components/assistant-ui/thread";
+import { Feedback } from "@/components/feedback";
 
 import { useTranslations } from "next-intl";
 import { useLoginDialog } from "@/stores/use-login-dialog";
@@ -176,6 +177,7 @@ export default function Page() {
             <div className="flex-1 flex items-center gap-2 px-3">
               <SidebarTrigger />
               <div className="flex-1" />
+              <Feedback />
               <ThemeToggle />
               <LangSwitch />
               <UserMenu />

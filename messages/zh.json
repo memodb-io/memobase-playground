@@ -77,5 +77,19 @@
     "github": "Github",
     "docs": "文档",
     "dashboard": "仪表盘"
+  },
+  "feedback": {
+    "feedbackBtn": "反馈",
+    "feedbackDesc": "你想分享什么？",
+    "placeholder": "在此处输入您的消息。",
+    "issue": "Issue",
+    "idea": "Idea",
+    "contentLabel": "内容",
+    "cancel": "取消",
+    "sending": "发送中...",
+    "send": "发送",
+    "emptyContent": "内容不能为空",
+    "successMsg": "反馈发送成功！",
+    "errorMsg": "发送失败"
   }
 }

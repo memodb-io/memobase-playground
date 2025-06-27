@@ -77,5 +77,19 @@
     "github": "Github",
     "docs": "Docs",
     "dashboard": "Dashboard"
+  },
+  "feedback": {
+    "feedbackBtn": "Feedback",
+    "feedbackDesc": "What would you like to share?",
+    "placeholder": "Type your message here.",
+    "issue": "Issue",
+    "idea": "Idea",
+    "contentLabel": "Content",
+    "cancel": "Cancel",
+    "sending": "Sending",
+    "send": "Send",
+    "emptyContent": "Content cannot be empty.",
+    "successMsg": "Feedback sent successfully!",
+    "errorMsg": "Failed to send feedback."
   }
 }
