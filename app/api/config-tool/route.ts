@@ -2,8 +2,7 @@ import { openai } from "@/lib/openai";
 import { jsonSchema, streamText } from "ai";
 
 import { createClient } from "@/utils/supabase/server";
-import { readFileSync } from "fs";
-import path from "path";
+import systemPrompt from "@/prompts/config_prompt.md?raw";
 
 export const maxDuration = 30;
 
@@ -16,8 +15,6 @@ export async function POST(req: Request) {
   }
 
   try {
-    const filePath = path.join(process.cwd(), "public/prompts/config_prompt.md");
-    const systemPrompt = readFileSync(filePath, "utf-8");
     const { messages, tools } = await req.json();
 
     const result = streamText({
