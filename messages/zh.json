@@ -90,6 +90,7 @@
     "send": "发送",
     "emptyContent": "内容不能为空",
     "successMsg": "反馈发送成功！",
-    "errorMsg": "发送失败"
+    "errorMsg": "发送失败",
+    "loginRequired": "您必须登录才能发送反馈"
   }
 }

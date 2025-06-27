@@ -20,9 +20,12 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 import { toast } from "sonner";
 import { sendFeedback } from "@/api/models/feedback";
+import { useLoginDialog } from "@/stores/use-login-dialog";
 
 export function Feedback() {
   const t = useTranslations("feedback");
+  const { openDialog } = useLoginDialog();
+
   const [loading, setLoading] = React.useState(false);
   const [type, setType] = React.useState<"issue" | "idea">("issue");
   const [content, setContent] = React.useState("");
@@ -38,6 +41,11 @@ export function Feedback() {
     setLoading(true);
     try {
       const res = await sendFeedback(type, content.trim());
+      if (res.code === 401) {
+        openDialog();
+        toast.error(t("loginRequired") || "Please login first.");
+        return;
+      };
       if (res.code !== 0) throw res.message;
       toast.success(t("successMsg"));
       setContent("");

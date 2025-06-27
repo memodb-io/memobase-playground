@@ -90,6 +90,7 @@
     "send": "Send",
     "emptyContent": "Content cannot be empty.",
     "successMsg": "Feedback sent successfully!",
-    "errorMsg": "Failed to send feedback."
+    "errorMsg": "Failed to send feedback.",
+    "loginRequired": "You must log in to send feedback"
   }
 }
