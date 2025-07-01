@@ -73,7 +73,7 @@ export function UserMemory({
   profiles: UserProfile[];
   events: UserEvent[];
   badge?: string;
-  onRefresh?: () => void;
+  onRefresh?: () => Promise<void>;
   profilesFold?: boolean;
   canAdd?: boolean;
   canEdit?: boolean;
@@ -233,8 +233,8 @@ export function UserMemory({
                           }
                           setIsLoading(true);
                           await addProfile(content, topic, sub_topic)
-                            .then(() => {
-                              onRefresh?.();
+                            .then(async () => {
+                              await onRefresh?.();
                             })
                             .finally(() => {
                               setIsLoading(false);
@@ -385,8 +385,8 @@ export function UserMemory({
                                                     topic,
                                                     sub_topic
                                                   )
-                                                    .then(() => {
-                                                      onRefresh?.();
+                                                    .then(async () => {
+                                                      await onRefresh?.();
                                                     })
                                                     .finally(() => {
                                                       setIsLoading(false);
@@ -431,8 +431,8 @@ export function UserMemory({
                                                   await deleteProfile(
                                                     profile.id
                                                   )
-                                                    .then(() => {
-                                                      onRefresh?.();
+                                                    .then(async () => {
+                                                      await onRefresh?.();
                                                     })
                                                     .finally(() => {
                                                       setIsLoading(false);
@@ -514,8 +514,8 @@ export function UserMemory({
                                   onClick={async () => {
                                     setIsLoading(true);
                                     await deleteEvent(event.id)
-                                      .then(() => {
-                                        onRefresh?.();
+                                      .then(async () => {
+                                        await onRefresh?.();
                                       })
                                       .finally(() => {
                                         setIsLoading(false);

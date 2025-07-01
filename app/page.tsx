@@ -173,9 +173,9 @@ export default function Page() {
               setIsLoading={setIsLoading}
               events={events}
               profiles={profiles}
-              onRefresh={() => {
-                fetchProfile();
-                fetchEvent();
+              onRefresh={async () => {
+                await fetchProfile();
+                await fetchEvent();
               }}
               canAdd
               canEdit
