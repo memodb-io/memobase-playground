@@ -7,10 +7,7 @@ import { AssistantRuntimeProvider, AssistantCloud } from "@assistant-ui/react";
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import { AssistantSidebar } from "@/components/assistant-ui/assistant-sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import {
-  SidebarInset,
-  SidebarProvider,
-} from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 import { UserProfile, UserEvent } from "@memobase/memobase";
 
@@ -101,6 +98,7 @@ export default function Page() {
           >
             <UserMemory
               isLoading={isLoading}
+              setIsLoading={setIsLoading}
               badge="preview"
               events={events}
               profiles={profiles}

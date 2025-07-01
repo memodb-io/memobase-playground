@@ -45,3 +45,6 @@ export const updateProfile = (id: string, content: string, topic: string, subTop
     topic,
     sub_topic: subTopic,
   });
+
+export const deleteEvent = (id: string): Promise<Res<null>> =>
+  service.delete(`/api/memobase/event/${id}`);
