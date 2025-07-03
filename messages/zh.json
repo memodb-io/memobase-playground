@@ -71,7 +71,10 @@
     "configToolSubtitle": "自动为您生成 AI 应用所需的个性化记忆模版",
     "configToolDescription": "只需简单描述您的构建目标，例如\"我想开发个人AI助手”，Memobase 将智能生成用户画像的关键字段和事件标签，助您高效构建AI 记忆能力。",
     "configToolDescription2": "✨ 省时省力，告别繁琐耗时的配置工作——开箱即用的长期记忆解决方案 ✨",
-    "configToolTips": "👇 开始输入，剩下的交给Memobase"
+    "configToolTips": "👇 开始输入，剩下的交给Memobase",
+    "welcomeMessageSubtitle": "开启自由对话——看Memobase如何实时构建基于用户画像的长期记忆",
+    "welcomeMessageDescription": "直观体验： • 用户画像动态更新 • 事件日志自动记录",
+    "welcomeMessageDescription2": "👇 开始对话——让 AI 更加懂你"
   },
   "error": {
     "title": "出错了",

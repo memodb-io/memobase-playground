@@ -83,9 +83,12 @@ const ThreadWelcome: FC = () => {
     <ThreadPrimitive.Empty>
       <div className="flex w-full max-w-[var(--thread-max-width)] flex-grow flex-col">
         <div className="flex w-full flex-grow flex-col items-center justify-center">
-          <p className="mt-4 font-medium">
-            {t("welcomeMessage")}
-          </p>
+          <h2 className="mt-4 text-2xl font-bold">{t("welcomeMessage")}</h2>
+          <p className="text-muted-foreground">{t("welcomeMessageSubtitle")}</p>
+          <div className="flex flex-col items-center gap-2 mt-4 text-muted-foreground">
+            <p>{t("welcomeMessageDescription")}</p>
+            <p>{t("welcomeMessageDescription2")}</p>
+          </div>
         </div>
         <ThreadWelcomeSuggestions />
       </div>
@@ -97,8 +100,16 @@ const ThreadWelcomeSuggestions: FC = () => {
   const t = useTranslations("common");
   const suggestions = [
     { icon: UserIcon, prompt: "My name is ", label: t("suggestions.myName") },
-    { icon: PlaneIcon, prompt: "I like to travel to ", label: t("suggestions.travel") },
-    { icon: UtensilsIcon, prompt: "I like to eat ", label: t("suggestions.food") },
+    {
+      icon: PlaneIcon,
+      prompt: "I like to travel to ",
+      label: t("suggestions.travel"),
+    },
+    {
+      icon: UtensilsIcon,
+      prompt: "I like to eat ",
+      label: t("suggestions.food"),
+    },
     {
       icon: AlertTriangleIcon,
       prompt: "I am allergic to ",

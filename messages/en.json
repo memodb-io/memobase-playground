@@ -71,7 +71,10 @@
     "configToolSubtitle": "Auto-generate the memory schema your AI agent needs.",
     "configToolDescription": "Describe what you're building — for example, “I want to build a personal AI assistant” — and we'll suggest the key user profile fields and event tags your memory should track.",
     "configToolDescription2": "✨ Save time and avoid guesswork — start with a ready-to-use memory schema.  ✨",
-    "configToolTips": "👇 Start typing and let Memobase do the rest."
+    "configToolTips": "👇 Start typing and let Memobase do the rest.",
+    "welcomeMessageSubtitle": "Start an open conversation — Memobase automatically builds memory as you talk.",
+    "welcomeMessageDescription": "You’ll see how profiles evolve, events log, and AI remembers you.",
+    "welcomeMessageDescription2": "👇 Start chatting — every word counts."
   },
   "error": {
     "title": "Error",
