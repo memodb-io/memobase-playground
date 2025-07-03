@@ -79,7 +79,15 @@ const ThreadWelcome: FC = () => {
     <ThreadPrimitive.Empty>
       <div className="flex w-full max-w-[var(--thread-max-width)] flex-grow flex-col">
         <div className="flex w-full flex-grow flex-col items-center justify-center">
-          <p className="mt-4 font-medium">{t("configToolMessage")}</p>
+          <h2 className="mt-4 text-2xl font-bold">{t("configToolMessage")}</h2>
+          <p className="text-muted-foreground">{t("configToolSubtitle")}</p>
+          <div className="flex flex-col items-center gap-2 mt-4 text-muted-foreground">
+            <p>{t("configToolDescription")}</p>
+            <p>{t("configToolDescription2")}</p>
+          </div>
+        </div>
+        <div className="flex flex-col items-center gap-2 mt-4 font-medium text-sm text-muted-foreground">
+          {t("configToolTips")}
         </div>
       </div>
     </ThreadPrimitive.Empty>

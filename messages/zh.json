@@ -67,7 +67,11 @@
     "topic": "主题",
     "error_empty_fields": "表单内容不能为空",
     "new": "新对话",
-    "configToolMessage": "欢迎使用配置生成工具，请描述你要创建的应用！"
+    "configToolMessage": "欢迎使用 Configure Generation Tool",
+    "configToolSubtitle": "自动为您生成 AI 应用所需的个性化记忆模版",
+    "configToolDescription": "只需简单描述您的构建目标，例如\"我想开发个人AI助手”，Memobase 将智能生成用户画像的关键字段和事件标签，助您高效构建AI 记忆能力。",
+    "configToolDescription2": "✨ 省时省力，告别繁琐耗时的配置工作——开箱即用的长期记忆解决方案 ✨",
+    "configToolTips": "👇 开始输入，剩下的交给Memobase"
   },
   "error": {
     "title": "出错了",
@@ -75,7 +79,7 @@
     "backToLogin": "返回登录页面"
   },
   "navigation": {
-    "example": "示例",
+    "example": "记忆示例",
     "github": "Github",
     "docs": "文档",
     "dashboard": "仪表盘",
