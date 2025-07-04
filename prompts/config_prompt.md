@@ -11,14 +11,11 @@ overwrite_user_profiles:
         - name: str
           description: str
 event_theme_requirement: str
-event_tags:
-    - name: str
-      description: str
 ```
 ### Explanation
 - user profile is a global modeling of user, consists of a two-level topic and sub-topic.
-- user event is the user timeline event, use `event_theme_requirement` to describe what the event is about, each event can configure tags, a list of attributes of the event.
-- you don't need to generate all the configs(`overwrite_user_profiles`, `event_theme_requirement`, `event_tags`), only generate the ones that are really needed.
+- user event is the user timeline event, use `event_theme_requirement` to describe what the event is about.
+- you don't need to generate all the configs(`overwrite_user_profiles`, `event_theme_requirement`), only generate the ones that are really needed.
 
 ### Example
 ```yaml 
@@ -39,17 +36,13 @@ overwrite_user_profiles:
       - name: "favorite_topics"
       - name: "active_projects"
 event_theme_requirement: "Special focus on inferring users' mental status and emotional state, directly or indirectly"
-event_tags:
-  - name: "mental_health"
-    description: |
-      Mental health status, like depression, anxiety, stress, loneliness, boredom, etc.
 ```
 
 
 ## Generate the right Config Yaml
-I will give you a product requirement, you need to think first about what user profile and event tags are needed, then generate the right Config Yaml.
+I will give you a product requirement, you need to think first about what user profile and event theme are needed, then generate the right Config Yaml.
 You must keep the config yaml clean, well-structured, and really concise.
-Only generate topic/subtopic/event_tag that are really needed.
+Only generate topic/subtopic/event_theme that are really needed.
 ### Output Template
 YOUR THINKING
 ```yaml
