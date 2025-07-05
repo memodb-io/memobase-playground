@@ -534,9 +534,11 @@ export function UserMemory({
                               asChild
                               className="cursor-pointer"
                             >
-                              <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale">
+                              <div className="*:data-[slot=avatar]:ring-background flex items-center -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale">
                                 {event.event_data?.profile_delta?.map(
                                   (delta, index) => {
+                                    if (index === 5) return "···";
+                                    if (index > 4) return null;
                                     const subTopic =
                                       delta.attributes?.sub_topic || "default";
                                     const Icon = getTopicIcon(subTopic);
