@@ -9,8 +9,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { NavMain } from "@/components/nav-main";
+import { Button } from "@/components/ui/button";
+import { List } from "lucide-react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +22,8 @@ export function AppSidebar({
   children,
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+  const { open, toggleSidebar } = useSidebar();
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -45,7 +50,22 @@ export function AppSidebar({
         <NavMain />
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>{children}</SidebarGroup>
+        <SidebarGroup>
+          {open ? (
+            <>{children}</>
+          ) : (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                toggleSidebar();
+              }}
+            >
+              <List />
+              <span className="sr-only">Toggle Sidebar</span>
+            </Button>
+          )}
+        </SidebarGroup>
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
