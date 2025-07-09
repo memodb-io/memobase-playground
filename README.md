@@ -228,6 +228,7 @@ CREATE OR REPLACE FUNCTION public.create_thread(uid uuid, last_message_at timest
  RETURNS json
  LANGUAGE plpgsql
  SECURITY DEFINER
+ SET search_path = extensions, public
 AS $function$DECLARE
   thread_id UUID;
 BEGIN
@@ -260,6 +261,22 @@ AS $function$BEGIN
   UPDATE threads
   SET
     is_archived = archived,
+    updated_by = uid,
+    updated_at = now()
+  WHERE id = thread_id
+    AND created_by = uid;
+
+  RETURN json_build_object();
+END;$function$
+
+CREATE OR REPLACE FUNCTION public.update_thread_title(uid uuid, thread_id uuid, t text)
+ RETURNS json
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+AS $function$BEGIN
+  UPDATE threads
+  SET
+    title = t,
     updated_by = uid,
     updated_at = now()
   WHERE id = thread_id
@@ -305,6 +322,7 @@ CREATE OR REPLACE FUNCTION public.create_message(uid uuid, tid uuid, pid uuid, f
  RETURNS json
  LANGUAGE plpgsql
  SECURITY DEFINER
+ SET search_path = extensions, public
 AS $function$DECLARE
   mid UUID;
 BEGIN
