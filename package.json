@@ -38,6 +38,8 @@
     "ai": "^4.3.16",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.18.1",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.515.0",
