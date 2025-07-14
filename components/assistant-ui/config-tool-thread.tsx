@@ -23,6 +23,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { MarkdownText } from "@/components/assistant-ui/markdown-text";
 import { TooltipIconButton } from "@/components/assistant-ui/tooltip-icon-button";
+import { UserMenu } from "@/components/user-menu";
 
 import { useUserStore } from "@/stores/user";
 
@@ -96,7 +97,7 @@ const ThreadWelcome: FC = () => {
 
 const Composer: FC = () => {
   const t = useTranslations("common");
-  const { isMaxConversations } = useUserStore();
+  const { isMaxConversations, user } = useUserStore();
 
   if (isMaxConversations()) {
     return (
@@ -116,10 +117,16 @@ const Composer: FC = () => {
         placeholder={t("writeMessage")}
         className="placeholder:text-muted-foreground max-h-40 flex-grow resize-none border-none bg-transparent px-2 py-4 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed"
       />
-      <div className="flex gap-2">
-        <ComposerAction />
-        <ThreadListNew />
-      </div>
+      {!!user ? (
+        <div className="flex gap-2">
+          <ComposerAction />
+          <ThreadListNew />
+        </div>
+      ) : (
+        <div className="my-2.5 transition-opacity ease-in">
+          <UserMenu />
+        </div>
+      )}
     </ComposerPrimitive.Root>
   );
 };
