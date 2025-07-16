@@ -9,9 +9,24 @@ import Link from "next/link";
 import { useFormStatus } from "react-dom";
 import AuthPage from "@/components/auth-page";
 
+function SubmitButton({
+  label,
+  loadingLabel,
+}: {
+  label: string;
+  loadingLabel: string;
+}) {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button type="submit" className="w-full" disabled={pending}>
+      {pending ? loadingLabel : label}
+    </Button>
+  );
+}
+
 export default function SignUpPage() {
   const t = useTranslations("common");
-  const { pending } = useFormStatus();
 
   return (
     <AuthPage>
@@ -44,9 +59,7 @@ export default function SignUpPage() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full" disabled={pending}>
-              {pending ? t("signingUp") : t("signup")}
-            </Button>
+            <SubmitButton label={t("signup")} loadingLabel={t("signingUp")} />
           </div>
         </form>
         <div className="text-center text-sm">

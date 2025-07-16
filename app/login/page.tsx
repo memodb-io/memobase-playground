@@ -12,9 +12,23 @@ import Link from "next/link";
 import { useFormStatus } from "react-dom";
 import AuthPage from "@/components/auth-page";
 
+function LoginSubmitButton({
+  label,
+  loadingLabel,
+}: {
+  label: string;
+  loadingLabel: string;
+}) {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" className="w-full" disabled={pending}>
+      {pending ? loadingLabel : label}
+    </Button>
+  );
+}
+
 export default function LoginPage() {
   const t = useTranslations("common");
-  const { pending } = useFormStatus();
   const searchParams = useSearchParams();
   const message = searchParams.get("message");
 
@@ -110,9 +124,10 @@ export default function LoginPage() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full" disabled={pending}>
-              {pending ? t("loggingIn") : t("login")}
-            </Button>
+            <LoginSubmitButton
+              label={t("login")}
+              loadingLabel={t("loggingIn")}
+            />
           </div>
         </form>
         <div className="text-center text-sm">
