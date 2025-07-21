@@ -1,5 +1,7 @@
 "use client";
 
+import { useTransition } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,21 +13,6 @@ import { AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { useFormStatus } from "react-dom";
 import AuthPage from "@/components/auth-page";
-
-function LoginSubmitButton({
-  label,
-  loadingLabel,
-}: {
-  label: string;
-  loadingLabel: string;
-}) {
-  const { pending } = useFormStatus();
-  return (
-    <Button type="submit" className="w-full" disabled={pending}>
-      {pending ? loadingLabel : label}
-    </Button>
-  );
-}
 
 export default function LoginPage() {
   const t = useTranslations("common");
@@ -41,8 +28,10 @@ export default function LoginPage() {
             {t("welcomeBackDesc")}
           </p>
         </div>
-        <form action={signInWithGoogle}>
-          <Button variant="outline" className="w-full" type="submit">
+
+        <SocialLoginButton
+          action={signInWithGoogle}
+          icon={
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -65,11 +54,13 @@ export default function LoginPage() {
                 fill="#EA4335"
               />
             </svg>
-            {t("signInWithGoogle")}
-          </Button>
-        </form>
-        <form action={signInWithGithub}>
-          <Button variant="outline" className="w-full" type="submit">
+          }
+          label={t("signInWithGoogle")}
+        />
+
+        <SocialLoginButton
+          action={signInWithGithub}
+          icon={
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -80,9 +71,10 @@ export default function LoginPage() {
                 fill="currentColor"
               />
             </svg>
-            {t("signInWithGithub")}
-          </Button>
-        </form>
+          }
+          label={t("signInWithGithub")}
+        />
+
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
           <span className="relative z-10 bg-card px-2 text-muted-foreground">
             {t("orLoginWithEmail")}
@@ -144,5 +136,50 @@ export default function LoginPage() {
         })}
       </div>
     </AuthPage>
+  );
+}
+
+function LoginSubmitButton({
+  label,
+  loadingLabel,
+}: {
+  label: string;
+  loadingLabel: string;
+}) {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" className="w-full" disabled={pending}>
+      {pending ? loadingLabel : label}
+    </Button>
+  );
+}
+
+type SocialLoginButtonProps = {
+  action: () => void;
+  icon: React.ReactNode;
+  label: string;
+};
+
+function SocialLoginButton({ action, icon, label }: SocialLoginButtonProps) {
+  const [isPending, startTransition] = useTransition();
+
+  return (
+    <form
+      action={() => {
+        startTransition(() => {
+          action();
+        });
+      }}
+    >
+      <Button
+        type="submit"
+        variant="outline"
+        className="w-full"
+        disabled={isPending}
+      >
+        {icon}
+        {label}
+      </Button>
+    </form>
   );
 }
