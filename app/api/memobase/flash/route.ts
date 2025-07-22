@@ -13,7 +13,7 @@ export async function POST() {
 
   try {
     const user = await memoBaseClient.getOrCreateUser(data.user.id);
-    await user.flush();
+    await user.flush("chat", true);
   } catch {
     return createApiError("失败", 500);
   }

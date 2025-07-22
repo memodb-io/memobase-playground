@@ -24,7 +24,8 @@ export async function POST(req: Request) {
       Blob.parse({
         type: BlobType.Enum.chat,
         messages: messages,
-      })
+      }),
+      true
     );
   } catch {
     return createApiError("插入失败", 500);
