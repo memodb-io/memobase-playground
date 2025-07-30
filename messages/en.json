@@ -21,7 +21,7 @@
     "signInWithGithub": "Sign in with GitHub",
     "getRecordsFailed": "Failed to get records",
     "insertRecordsFailed": "Failed to save records",
-    "flashRecordsFailed": "Failed to update records",
+    "flushRecordsFailed": "Failed to update records",
     "chatError": "Chat error occurred",
     "memory_section_title": "User Memory",
     "memories": "Profiles",

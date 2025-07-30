@@ -15,7 +15,7 @@ import { UserProfile, UserEvent } from "@memobase/memobase";
 import { toast } from "sonner";
 
 import {
-  flash,
+  flush,
   getProfile,
   insertMessages,
   getEvent,
@@ -121,12 +121,12 @@ export default function Page() {
             return;
           }
 
-          const flashRes = await flash();
-          if (flashRes.code === 0) {
+          const flushRes = await flush();
+          if (flushRes.code === 0) {
             fetchProfile();
             fetchEvent();
           } else {
-            toast.error(flashRes.message || t("flashRecordsFailed"));
+            toast.error(flushRes.message || t("flushRecordsFailed"));
           }
         } catch {
           toast.error(t("insertRecordsFailed"));

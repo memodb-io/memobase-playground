@@ -21,7 +21,7 @@
     "signInWithGithub": "使用 GitHub 登录",
     "getRecordsFailed": "获取记录失败",
     "insertRecordsFailed": "保存记录失败",
-    "flashRecordsFailed": "更新记录失败",
+    "flushRecordsFailed": "更新记录失败",
     "chatError": "对话发生错误",
     "memory_section_title": "用户记忆",
     "memories": "画像",
