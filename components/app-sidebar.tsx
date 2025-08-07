@@ -13,7 +13,9 @@ import {
 } from "@/components/ui/sidebar";
 import { NavMain } from "@/components/nav-main";
 import { Button } from "@/components/ui/button";
-import { List } from "lucide-react";
+import { NavSecondary } from "@/components/nav-secondary";
+
+import { List, ChartColumnBig } from "lucide-react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -23,6 +25,16 @@ export function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   const { open, toggleSidebar } = useSidebar();
+
+  const data = {
+    navSecondary: [
+      {
+        title: "Status",
+        url: "https://status.memobase.io/",
+        icon: ChartColumnBig,
+      },
+    ],
+  };
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -66,6 +78,7 @@ export function AppSidebar({
             </Button>
           )}
         </SidebarGroup>
+        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
