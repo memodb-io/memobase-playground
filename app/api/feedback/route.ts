@@ -18,12 +18,12 @@ export async function POST(req: Request) {
   }
 
   try {
-    const res = await supabase
-      .rpc('create_feedback_by_uid', {
-        c: content,
-        t: type,
-        uid: data.user.id
-      })
+    const res = await supabase.rpc("create_feedback_by_uid", {
+      c: content,
+      t: type,
+      uid: data.user.id,
+      s: "Playground",
+    });
 
     if (res.error) {
       console.error(res.error.message);
