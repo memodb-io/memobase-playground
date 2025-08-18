@@ -44,7 +44,7 @@ export function NavSecondary({
           {!!deploy && (
             <SidebarMenuItem>
               <SidebarMenuButton asChild size="sm">
-                <a href="https://github.com/memodb-io/memobase/pkgs/container/memobase">
+                <a href="https://github.com/memodb-io/memobase/pkgs/container/memobase" target="_blank">
                   <Layers />
                   <span>Deploy</span>
                   <Badge variant="outline" className="ml-auto">
