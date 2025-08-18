@@ -43,18 +43,25 @@ export function AppSidebar({
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link href="/">
-                <Image
-                  className="rounded"
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/logo.png`}
-                  alt="Memobase logo"
-                  width={38}
-                  height={38}
-                  priority
-                />
-                <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold">Memobase</span>
-                  <span className=""></span>
-                </div>
+                {open ? (
+                  <Image
+                    src="https://assets.memodb.io/memobase_logo-light.jpg"
+                    alt="Memobase logo"
+                    width={142}
+                    height={32}
+                    unoptimized
+                    className="object-cover rounded-sm"
+                  />
+                ) : (
+                  <Image
+                    className="rounded"
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/logo.png`}
+                    alt="Memobase logo"
+                    width={38}
+                    height={38}
+                    priority
+                  />
+                )}
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
